@@ -1,19 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Formik, Form, Field } from 'formik'
+import { login } from '../api/auth'
+import { useNavigate } from 'react-router-dom'
 
 function LoginPage() {
+  const navigate = useNavigate()
+  const [error, setError] = useState('')
+
   const initialValues = {
     username: '',
     password: '',
   }
 
-  const handleSubmit = (values) => {
-    alert(`Submitted: ${JSON.stringify(values)}`);
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      const data = await login(values.username, values.password)
+      localStorage.setItem('token', data.token)
+      navigate('/')
+    } catch (err) {
+      setError('Неверное имя пользователя или пароль')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto' }}>
       <h2>Авторизация</h2>
+      {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
