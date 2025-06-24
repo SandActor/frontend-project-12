@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { login } from '../api/auth'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -51,6 +51,7 @@ function LoginPage() {
               />
             </div>
             <button type="submit">Войти</button>
+            <p>Нет аккаунта? <Link to="/signup">Зарегистрируйтесь</Link></p>
           </Form>
         )}
       </Formik>
