@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteChannel, renameChannel } from '../store/channelsSlice';
-import RenameChannelModal from './RenameChannelModal';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { deleteChannel, renameChannel } from '../store/channelsSlice'
+import RenameChannelModal from './RenameChannelModal'
+import { useTranslation } from 'react-i18next'
 
 const ChannelMenu = ({ channel }) => {
-  const dispatch = useDispatch();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
@@ -31,8 +33,8 @@ const ChannelMenu = ({ channel }) => {
         >
           {!channel.isDefault && (
             <>
-              <button onClick={handleDelete}>Удалить</button>
-              <button onClick={() => setRenameModalOpen(true)}>Переименовать</button>
+              <button onClick={handleDelete}>{t('channelMenu.delete')}</button>
+              <button onClick={() => setRenameModalOpen(true)}>{t('channelMenu.rename')}</button>
             </>
           )}
         </div>

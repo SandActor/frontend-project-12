@@ -1,13 +1,12 @@
-import React from 'react'
-import { Provider } from 'react-redux';
-import store from '../store';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useDispatch } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import { registerUser } from '../store/authSlice'
+import { useTranslation } from 'react-i18next'
 
 const SignupPage = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -48,10 +47,10 @@ const SignupPage = () => {
       <header>
         <Link to="/">Hexlet Chat</Link>
       </header>
-      <h2>Регистрация</h2>
+      <h2>{t('signup.title')}</h2>
       <form onSubmit={formik.handleSubmit}>
         <div>
-          <label htmlFor="username">Имя пользователя</label>
+          <label htmlFor="username">{t('signup.username')}</label>
           <input
             id="username"
             name="username"
@@ -65,7 +64,7 @@ const SignupPage = () => {
           )}
         </div>
         <div>
-          <label htmlFor="password">Пароль</label>
+          <label htmlFor="password">{t('signup.password')}</label>
           <input
             id="password"
             name="password"
@@ -79,7 +78,7 @@ const SignupPage = () => {
           )}
         </div>
         <div>
-          <label htmlFor="confirmPassword">Подтверждение пароля</label>
+          <label htmlFor="confirmPassword">{t('signup.confirmPassword')}</label>
           <input
             id="confirmPassword"
             name="confirmPassword"
@@ -92,10 +91,10 @@ const SignupPage = () => {
             <div style={{ color: 'red' }}>{formik.errors.confirmPassword}</div>
           )}
         </div>
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit">{t('signup.register')}</button>
       </form>
       <p>
-        Уже есть аккаунт? <Link to="/login">Войти</Link>
+        {t('signup.alreadyHave')} <Link to="/login">{t('signup.login')}</Link>
       </p>
     </div>
   )

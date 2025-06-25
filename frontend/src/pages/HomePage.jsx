@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 function HomePage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -19,8 +21,8 @@ function HomePage() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>Добро пожаловать в чат</h1>
-      <p>Здесь будет отображаться чат после авторизации.</p>
+      <h1>{t('home.welcome')}</h1>
+      <p>{t('home.description')}</p>
     </div>
   )
 }

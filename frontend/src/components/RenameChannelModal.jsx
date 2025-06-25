@@ -1,8 +1,9 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useTranslation } from 'react-i18next'
 
 const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
+  const { t } = useTranslation()
   const validationSchema = Yup.object({
     newName: Yup.string()
       .min(3, 'Минимум 3 символа')
@@ -34,7 +35,7 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
           width: '300px',
         }}
       >
-        <h3>Переименовать канал</h3>
+        <h3>{t('channels.renameTitle')}</h3>
         <Formik
           initialValues={{ newName: currentName }}
           validationSchema={validationSchema}
@@ -46,12 +47,12 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <label htmlFor="newName">Новое имя</label>
+              <label htmlFor="newName">{t('channels.newName')}</label>
               <Field id="newName" name="newName" autoFocus />
               <ErrorMessage name="newName" component="div" style={{ color: 'red' }} />
               <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
-                <button type="submit" disabled={isSubmitting}>Переименовать</button>
-                <button type="button" onClick={onClose}>Отмена</button>
+                <button type="submit" disabled={isSubmitting}>{t('channels.rename')}</button>
+                <button type="button" onClick={onClose}>{t('channels.cansel')}</button>
               </div>
             </Form>
           )}

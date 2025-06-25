@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Formik, Form, Field } from 'formik'
 import { login } from '../api/auth'
 import { useNavigate, Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 function LoginPage() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [error, setError] = useState('')
 
@@ -26,13 +28,13 @@ function LoginPage() {
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto' }}>
-      <h2>Авторизация</h2>
+      <h2>{t('login.title')}</h2>
       {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
             <div style={{ marginBottom: '10px' }}>
-              <label htmlFor="username">Имя пользователя</label>
+              <label htmlFor="username">{t('login.username')}</label>
               <Field
                 id="username"
                 name="username"
@@ -41,7 +43,7 @@ function LoginPage() {
               />
             </div>
             <div style={{ marginBottom: '10px' }}>
-              <label htmlFor="password">Пароль</label>
+              <label htmlFor="password">{t('login.password')}</label>
               <Field
                 id="password"
                 name="password"
@@ -50,8 +52,8 @@ function LoginPage() {
                 style={{ width: '100%', padding: '8px', marginTop: '4px' }}
               />
             </div>
-            <button type="submit">Войти</button>
-            <p>Нет аккаунта? <Link to="/signup">Зарегистрируйтесь</Link></p>
+            <button type="submit">{t('login.submit')}</button>
+            <p>{t('login.noAccount')}<Link to="/signup">{t('login.signup')}</Link></p>
           </Form>
         )}
       </Formik>

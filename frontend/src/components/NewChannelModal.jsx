@@ -1,10 +1,11 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { addChannel } from '../store/channelsSlice';
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useDispatch, useSelector } from 'react-redux'
+import { addChannel } from '../store/channelsSlice'
+import { useTranslation } from 'react-i18next'
 
 const NewChannelModal = ({ onClose }) => {
+  const { t } = useTranslation()
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.list);
   const userId = useSelector((state) => state.auth?.userId); // если есть auth
@@ -40,7 +41,7 @@ const NewChannelModal = ({ onClose }) => {
           width: '300px',
         }}
       >
-        <h3>Создать канал</h3>
+        <h3>{t('channels.createTitle')}</h3>
         <Formik
           initialValues={{ name: '' }}
           validationSchema={validationSchema}
@@ -52,12 +53,12 @@ const NewChannelModal = ({ onClose }) => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <label htmlFor="name">Название канала</label>
+              <label htmlFor="name">{t('channels.nameLabel')}</label>
               <Field id="name" name="name" autoFocus />
               <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
               <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
-                <button type="submit" disabled={isSubmitting}>Создать</button>
-                <button type="button" onClick={onClose}>Отмена</button>
+                <button type="submit" disabled={isSubmitting}>{t('channels.create')}</button>
+                <button type="button" onClick={onClose}>{t('channels.cansel')}</button>
               </div>
             </Form>
           )}

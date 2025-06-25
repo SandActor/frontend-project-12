@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { io } from 'socket.io-client'
+import { useTranslation } from 'react-i18next'
 
-const socket = io('http://localhost:4000')
+const socket = io('http://localhost:5173')
 
 const ChatPage = () => {
+  const { t } = useTranslation()
+
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [currentChannel, setCurrentChannel] = useState('general')
@@ -74,10 +77,10 @@ const ChatPage = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Введите сообщение"
+        placeholder={t('chat.placeholder')}
         style={{ padding: '10px', width: '100%' }}
       />
-      <button onClick={sendMessage} style={{ marginTop: '10px' }}>Отправить</button>
+      <button onClick={sendMessage} style={{ marginTop: '10px' }}>{t('chat.send')}</button>
     </div>
   )
 }

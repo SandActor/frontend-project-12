@@ -1,7 +1,5 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setActiveChannel } from '../store/channelsSlice';
-import ChannelItem from './ChannelItem';
+import { useSelector, useDispatch } from 'react-redux'
+import { setActiveChannel } from '../store/channelsSlice'
 
 const ChannelsList = () => {
   const channels = useSelector((state) => state.channels.list);
@@ -34,4 +32,4 @@ const ChannelsList = () => {
   );
 };
 
-export default ChannelsList;
+export default ChannelsList
