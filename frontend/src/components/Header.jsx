@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout } from '../store/authSlice'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 const Header = () => {
   const { t } = useTranslation()

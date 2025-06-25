@@ -1,6 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
   const { t } = useTranslation()

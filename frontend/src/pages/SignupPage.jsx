@@ -1,14 +1,15 @@
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import { useDispatch } from 'react-redux'
-import { useNavigate, Link } from 'react-router-dom'
-import { registerUser } from '../store/authSlice'
-import { useTranslation } from 'react-i18next'
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import { registerUser } from '../store/authSlice';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const SignupPage = () => {
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -18,34 +19,35 @@ const SignupPage = () => {
     },
     validationSchema: Yup.object({
       username: Yup.string()
-        .min(3, 'Минимум 3 символа')
-        .max(20, 'Максимум 20 символов')
-        .required('Обязательное поле'),
+        .min(3, t('channels.nameMin'))
+        .max(20, t('channels.nameMax'))
+        .required(t('channels.nameRequired')),
       password: Yup.string()
-        .min(6, 'Минимум 6 символов')
-        .required('Обязательное поле'),
+        .min(6, t('channels.nameMin'))
+        .required(t('channels.nameRequired')),
       confirmPassword: Yup.string()
-        .oneOf([Yup.ref('password'), null], 'Пароли должны совпадать')
-        .required('Обязательное поле'),
+        .oneOf([Yup.ref('password'), null], t('signup.passwordMismatch'))
+        .required(t('channels.nameRequired')),
     }),
     onSubmit: async (values, { setErrors }) => {
       try {
-        await dispatch(registerUser(values))
-        navigate('/chat')
+        await dispatch(registerUser(values));
+        toast.success(t('notifications.loginSuccess'));
+        navigate('/chat');
       } catch (error) {
         if (error.response && error.response.status === 409) {
-          setErrors({ username: 'Это имя уже занято' })
+          setErrors({ username: t('channels.nameExists') });
         } else {
-          alert('Ошибка регистрации')
+          toast.error(t('notifications.loginFailed'));
         }
       }
     },
-  })
+  });
 
   return (
     <div>
       <header>
-        <Link to="/">Hexlet Chat</Link>
+        <Link to="/">{t('home.welcome')}</Link>
       </header>
       <h2>{t('signup.title')}</h2>
       <form onSubmit={formik.handleSubmit}>
@@ -92,12 +94,12 @@ const SignupPage = () => {
           )}
         </div>
         <button type="submit">{t('signup.register')}</button>
+        <p>
+          {t('signup.alreadyHave')} <Link to="/login">{t('signup.login')}</Link>
+        </p>
       </form>
-      <p>
-        {t('signup.alreadyHave')} <Link to="/login">{t('signup.login')}</Link>
-      </p>
     </div>
-  )
-}
+  );
+};
 
-export default SignupPage
+export default SignupPage;

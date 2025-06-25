@@ -1,13 +1,17 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { setActiveChannel } from '../store/channelsSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import { setActiveChannel } from '../store/channelsSlice';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const ChannelsList = () => {
+  const { t } = useTranslation();
   const channels = useSelector((state) => state.channels.list);
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
   const dispatch = useDispatch();
 
   const handleChangeChannel = (id) => {
     dispatch(setActiveChannel(id));
+    toast.success(t('notifications.channelSwitched'));
   };
 
   return (
@@ -32,4 +36,4 @@ const ChannelsList = () => {
   );
 };
 
-export default ChannelsList
+export default ChannelsList;

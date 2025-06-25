@@ -3,12 +3,13 @@ import * as Yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { addChannel } from '../store/channelsSlice'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 const NewChannelModal = ({ onClose }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.list);
-  const userId = useSelector((state) => state.auth?.userId); // если есть auth
+  const userId = useSelector((state) => state.auth?.userId);
 
   const validationSchema = Yup.object({
     name: Yup.string()

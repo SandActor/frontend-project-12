@@ -54,5 +54,13 @@
   },
   "header": {
     "logout": "Выйти"
+  },
+  "notifications": {
+    "channelCreated": "Канал успешно создан",
+    "channelRenamed": "Канал успешно переименован",
+    "channelDeleted": "Канал успешно удален",
+    "channelSwitched": "Канал переключен",
+    "loginSuccess": "Вы успешно вошли в систему",
+    "loginFailed": "Неверное имя пользователя или пароль"
   }
 }

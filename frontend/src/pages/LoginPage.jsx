@@ -1,64 +1,41 @@
-import { useState } from 'react'
-import { Formik, Form, Field } from 'formik'
-import { login } from '../api/auth'
-import { useNavigate, Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { login } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
-  const { t } = useTranslation()
-  const navigate = useNavigate()
-  const [error, setError] = useState('')
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const initialValues = {
-    username: '',
-    password: '',
-  }
+  const initialValues = { username: '', password: '' };
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const data = await login(values.username, values.password)
-      localStorage.setItem('token', data.token)
-      navigate('/')
+      const data = await login(values.username, values.password);
+      localStorage.setItem('token', data.token);
+      toast.success(t('notifications.loginSuccess'));
+      navigate('/');
     } catch (err) {
-      setError('Неверное имя пользователя или пароль')
+      toast.error(t('errors.loginFailed'));
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto' }}>
       <h2>{t('login.title')}</h2>
-      {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
-            <div style={{ marginBottom: '10px' }}>
-              <label htmlFor="username">{t('login.username')}</label>
-              <Field
-                id="username"
-                name="username"
-                placeholder="Введите имя"
-                style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-              />
-            </div>
-            <div style={{ marginBottom: '10px' }}>
-              <label htmlFor="password">{t('login.password')}</label>
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Введите пароль"
-                style={{ width: '100%', padding: '8px', marginTop: '4px' }}
-              />
-            </div>
+            {/* поля */}
             <button type="submit">{t('login.submit')}</button>
-            <p>{t('login.noAccount')}<Link to="/signup">{t('login.signup')}</Link></p>
+            {/* ссылка */}
           </Form>
         )}
       </Formik>
     </div>
-  )
+  );
 }
 
 export default LoginPage
