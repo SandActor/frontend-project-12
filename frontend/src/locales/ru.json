@@ -1,4 +1,7 @@
 {
+  "common": {
+    "appName": "Hexlet Chat"
+  },
   "chat": {
     "placeholder": "Введите сообщение",
     "send": "Отправить",

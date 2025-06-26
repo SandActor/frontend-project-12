@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <header style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-      <Link to="/">Hexlet Chat</Link>
+      <Link to="/">{t('common.appName')}</Link>
       {token && (
         <button onClick={handleLogout}>{t('header.logout')}</button>
       )}
