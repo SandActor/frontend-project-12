@@ -20,6 +20,11 @@ export default [
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
+    webServer: {
+      command: 'npm run start',
+      url: 'http://localhost:5001',
+      timeout: 60000,
+    },
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
