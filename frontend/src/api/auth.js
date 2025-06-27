@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:5001' // Замените на адрес вашего сервера
+const API_URL = 'http://localhost:5001'
 
 export const login = async (username, password) => {
   try {

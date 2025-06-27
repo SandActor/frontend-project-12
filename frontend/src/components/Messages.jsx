@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
 
 const Messages = () => {
   const messages = useSelector((state) => state.chat.messages)
