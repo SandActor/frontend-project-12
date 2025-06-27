@@ -22,7 +22,7 @@ export default [
     },
     webServer: {
       command: 'npm run start',
-      url: 'http://localhost:5001',
+      url: 'http://0.0.0.0:5001',
       timeout: 60000,
     },
     rules: {
