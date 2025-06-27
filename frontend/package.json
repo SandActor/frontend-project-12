@@ -1,11 +1,12 @@
 {
-  "name": "frontend",
+  "name": "@hexlet/code",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "npx start-server -s ./frontend/dist",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -6,7 +6,7 @@ export const fetchChatData = createAsyncThunk(
     const state = getState()
     const token = state.auth.token
 
-    const response = await fetch('/api/chat', {
+    const response = await fetch('/api/v1/channels', {
       headers: {
         Authorization: `Bearer ${token}`,
       },

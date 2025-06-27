@@ -28,9 +28,7 @@ function LoginPage() {
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         {() => (
           <Form>
-            {/* поля */}
             <button type="submit">{t('login.submit')}</button>
-            {/* ссылка */}
           </Form>
         )}
       </Formik>
