@@ -1,3 +1,4 @@
+import React from 'react';
 import rollbar from '../utils/rollbar'
 
 class ErrorBoundary extends React.Component {

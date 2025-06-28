@@ -1,7 +1,9 @@
 import { login } from '../api/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function LoginPage() {
   const { t } = useTranslation();
@@ -22,16 +24,59 @@ function LoginPage() {
     }
   };
 
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .required(t('validation.required')),
+    password: Yup.string()
+      .min(6, t('validation.min', { min: 6 }))
+      .required(t('validation.required'))
+  });
+
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto' }}>
       <h2>{t('login.title')}</h2>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        {() => (
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          handleSubmit(values);
+          setSubmitting(false);
+        }}
+      >
+        {({ isSubmitting }) => (
           <Form>
-            <button type="submit">{t('login.submit')}</button>
+            <div className="form-group">
+              <label htmlFor="username">{t('login.username')}</label>
+              <Field
+                type="text"
+                name="username"
+                id="username"
+                className="form-control"
+              />
+              <ErrorMessage name="username" component="div" className="text-danger" />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="password">{t('login.password')}</label>
+              <Field
+                type="password"
+                name="password"
+                id="password"
+                className="form-control"
+              />
+              <ErrorMessage name="password" component="div" className="text-danger" />
+            </div>
+
+            <button type="submit" disabled={isSubmitting} className="btn btn-primary">
+              {t('login.submit')}
+            </button>
           </Form>
         )}
       </Formik>
+
+      <p style={{ marginTop: '15px' }}>
+        {t('login.noAccount')} <Link to="/signup">{t('login.signup')}</Link>
+      </p>
     </div>
   );
 }

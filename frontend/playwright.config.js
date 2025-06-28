@@ -1,7 +1,8 @@
 module.exports = {
   webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:5001',
+    command: 'npx start-server -s ./frontend',
+    url: 'http://localhost:5002',
     timeout: 60000,
+    reuseExistingServer: true,
   },
-};
+}
