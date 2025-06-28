@@ -1,14 +1,13 @@
 {
   "name": "frontend",
-  "private": true,
   "version": "1.0.0",
-  "type": "module",
+  "private": true,
+  "proxy": "http://localhost:5001",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "start": "npx start-server -p 5002",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
