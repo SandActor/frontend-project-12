@@ -5,4 +5,4 @@ build:
 	cd frontend && npm run build
 
 start:
-	cd frontend && npx start-server -s ./frontend -p 5002
+	npm run start && npm run dev

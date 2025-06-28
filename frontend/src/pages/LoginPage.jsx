@@ -11,7 +11,7 @@ function LoginPage() {
 
   const initialValues = { username: '', password: '' };
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values) => {
     try {
       const data = await login(values.username, values.password);
       localStorage.setItem('token', data.token);
@@ -19,8 +19,6 @@ function LoginPage() {
       navigate('/');
     } catch (err) {
       toast.error(t('errors.loginFailed'));
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -38,9 +36,8 @@ function LoginPage() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values) => {
           handleSubmit(values);
-          setSubmitting(false);
         }}
       >
         {({ isSubmitting }) => (
