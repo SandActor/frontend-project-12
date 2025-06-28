@@ -5,4 +5,4 @@ build:
 	cd frontend && npm run build
 
 start:
-	npm run start && npm run dev
+	cd frontend && npm run start && npm run dev
