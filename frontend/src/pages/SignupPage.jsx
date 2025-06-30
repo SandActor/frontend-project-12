@@ -1,15 +1,15 @@
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
-import { registerUser } from '../store/authSlice';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useDispatch } from 'react-redux'
+import { useNavigate, Link } from 'react-router-dom'
+import { registerUser } from '../store/authSlice'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
 
 const SignupPage = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -42,12 +42,12 @@ const SignupPage = () => {
         }
       }
     },
-  });
+  })
 
   return (
     <div>
       <header>
-        <Link to="/">{t('home.welcome')}</Link>
+        <Link to="/">{t('common.appName')}</Link>
       </header>
       <h2>{t('signup.title')}</h2>
       <form onSubmit={formik.handleSubmit}>
@@ -99,7 +99,7 @@ const SignupPage = () => {
         </p>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SignupPage;
+export default SignupPage

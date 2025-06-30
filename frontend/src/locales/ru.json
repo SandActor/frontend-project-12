@@ -29,6 +29,7 @@
     "username": "Имя пользователя",
     "password": "Пароль",
     "confirmPassword": "Подтверждение пароля",
+    "passwordMismatch": "Пароли должны совпадать",
     "register": "Зарегистрироваться",
     "alreadyHave": "Уже есть аккаунт?",
     "login": "Войти"

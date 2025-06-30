@@ -24,10 +24,9 @@ function LoginPage() {
 
   const validationSchema = Yup.object({
     username: Yup.string()
-      .required(t('validation.required')),
+      .required(t('login.error')),
     password: Yup.string()
-      .min(6, t('validation.min', { min: 6 }))
-      .required(t('validation.required'))
+      .required(t('login.error'))
   });
 
   return (
