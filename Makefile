@@ -2,8 +2,8 @@ start-frontend:
 	npm -C frontend start
 start-backend:
 	npm start
-develop:
-	make start-backend & make start-frontend
+dev:
+	cd frontend && npm run dev
 install:
 	npm ci
 	cd frontend && npm ci
