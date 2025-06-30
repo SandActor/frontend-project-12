@@ -5,7 +5,7 @@
   "scripts": {
     "module": "src/main.js",
     "start": "npx start-server -s ./frontend",
-    "build": "npm run build --prefix frontend",
+    "build": "cd frontend && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "cd frontend && npm install"
   },

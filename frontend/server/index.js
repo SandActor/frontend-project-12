@@ -1,9 +1,7 @@
-const express = require('express')
 const http = require('http')
 const { Server } = require('/api/v1/')
 
-const app = express()
-const server = http.createServer(app)
+const server = http.createServer()
 const io = new Server(server)
 
 const messages = []
