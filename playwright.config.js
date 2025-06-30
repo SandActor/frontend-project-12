@@ -6,7 +6,7 @@ export default defineConfig({
   retries: 2,
   use: {
     headless: true,
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:5001',
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
   },
