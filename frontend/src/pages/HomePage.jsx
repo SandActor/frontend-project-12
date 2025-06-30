@@ -13,12 +13,6 @@ function HomePage() {
     }
   }, [navigate]);
 
-  const token = localStorage.getItem('token')
-
-  if (!token) {
-    return null
-  }
-
   return (
     <div style={{ padding: '20px' }}>
       <h1>{t('home.welcome')}</h1>

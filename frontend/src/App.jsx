@@ -15,7 +15,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          {/* Перенаправление на страницу 404 */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

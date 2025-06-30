@@ -34,7 +34,7 @@ const ChatPage = () => {
   const sendMessage = () => {
     if (input.trim() === '') return
 
-    const filteredText = filterProfanity(input); // фильтрация
+    const filteredText = filterProfanity(input)
     socket.emit(
       'send message',
       { text: filteredText, channelId: currentChannel },
