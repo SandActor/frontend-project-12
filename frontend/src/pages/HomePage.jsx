@@ -6,13 +6,6 @@ function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      navigate('/login')
-    }
-  }, [navigate]);
-
   return (
     <div style={{ padding: '20px' }}>
       <h1>{t('home.welcome')}</h1>
