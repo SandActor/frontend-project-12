@@ -1,6 +1,6 @@
 const express = require('express')
 const http = require('http')
-const { Server } = require('socket.io')
+const { Server } = require('/api/v1')
 
 const app = express()
 const server = http.createServer(app)
@@ -33,6 +33,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(5002, () => {
-  console.log('Server listening on port 5002')
+server.listen(5001, () => {
+  console.log('Server listening on port 5001')
 })

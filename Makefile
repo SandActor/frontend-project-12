@@ -1,7 +1,7 @@
 start-frontend:
 	cd frontend && npm run dev
 start-backend:
-	npm start
+	npx start-server -p 5002
 install:
 	npm ci
 	cd frontend && npm ci

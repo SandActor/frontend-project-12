@@ -32,6 +32,10 @@
     "passwordMismatch": "Пароли должны совпадать",
     "register": "Зарегистрироваться",
     "alreadyHave": "Уже есть аккаунт?",
+    "nameMin": "Минимум 3 символа",
+    "nameMax": "Максимум 20 символов",
+    "nameRequired": "Обязательное поле",
+    "passwordMin": "Не менее 6 символов",
     "login": "Войти"
   },
   "notfound": {
