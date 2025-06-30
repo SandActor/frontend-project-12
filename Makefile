@@ -1,9 +1,7 @@
 start-frontend:
-	npm -C frontend start
+	cd frontend && npm run dev
 start-backend:
 	npm start
-dev:
-	cd frontend && npm run dev
 install:
 	npm ci
 	cd frontend && npm ci
@@ -11,6 +9,6 @@ build:
 	rm -rf frontend/build
 	npm run build
 start:
-	make start-backend
+	make start-backend && make start-frontend
 test:
 	npx playwright test --config=playwright.config.js
