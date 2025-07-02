@@ -55,6 +55,18 @@ function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
+  useEffect(() => {
+    // Проверяем наличие токена в localStorage
+    const token = localStorage.getItem('token')
+    if (!token) {
+      // Если токена нет, перенаправляем на страницу входа
+      navigate('/login')
+    }
+  }, [navigate])
+
+  // Если пользователь не авторизован, этот код не выполнится
+  // из-за перенаправления в useEffect
+
   return (
     <div style={styles.container}>
       <header style={styles.header}>
