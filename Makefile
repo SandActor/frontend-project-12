@@ -9,6 +9,6 @@ build:
 	rm -rf frontend/build
 	npm run build
 start:
-	make start-backend && make start-frontend
+	make start-backend & make start-frontend
 test:
 	npx playwright test --config=playwright.config.js
