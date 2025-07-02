@@ -28,7 +28,7 @@
     "title": "Регистрация",
     "username": "Имя пользователя",
     "password": "Пароль",
-    "confirmPassword": "Подтверждение пароля",
+    "confirmPassword": "Подтвердите пароль",
     "passwordMismatch": "Пароли должны совпадать",
     "register": "Зарегистрироваться",
     "alreadyHave": "Уже есть аккаунт?",
