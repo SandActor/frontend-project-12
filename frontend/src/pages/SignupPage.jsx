@@ -105,13 +105,11 @@ const SignupPage = () => {
         if (registerUser.fulfilled.match(result)) {
           toast.success(t('notifications.registrationSuccess'))
           navigate('/chat')
+        } else {
+          setErrors({ username: 'Такой пользователь уже существует' });
         }
       } catch (error) {
-        if (error.payload === 'Username already exists') {
-          setErrors({ username: 'Такой пользователь уже существует' });
-        } else {
-          toast.error(t('notifications.registrationFailed'));
-        }
+        toast.error(t('notifications.registrationFailed'));
       }
     },
   })
