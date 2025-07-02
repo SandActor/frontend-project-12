@@ -102,9 +102,9 @@ const SignupPage = () => {
     onSubmit: async (values, { setErrors }) => {
       try {
         const result = await dispatch(registerUser(values))
-        if (result) {
+        if (registerUser.fulfilled.match(result)) {
           toast.success(t('notifications.registrationSuccess'))
-          navigate('/')
+          navigate('/chat')
         }
       } catch (error) {
         toast.error(t('signup.duplicateError'))
