@@ -107,7 +107,7 @@ const SignupPage = () => {
           navigate('/chat')
         }
       } catch (error) {
-        toast.error(t('signup.duplicateError'))
+        setErrors({ username: t('signup.duplicateError') })
       }
     },
   })
