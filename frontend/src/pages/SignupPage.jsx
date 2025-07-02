@@ -102,7 +102,7 @@ const SignupPage = () => {
     onSubmit: async (values, { setErrors }) => {
       try {
         const result = await dispatch(registerUser(values))
-        if (registerUser.fulfilled.match(result)) {
+        if (result) {
           toast.success(t('notifications.registrationSuccess'))
           navigate('/')
         }
