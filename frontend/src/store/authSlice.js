@@ -8,9 +8,9 @@ export const registerUser = createAsyncThunk(
       await axios.post('/api/v1/signup', userData)
     } catch (err) {
       if (err.response && err.response.status === 409) {
-        return rejectWithValue({ status: 409 })
+        return rejectWithValue('Username already exists')
       }
-      return rejectWithValue(err)
+      return rejectWithValue(err.response?.data?.message || 'Registration failed');
     }
   }
 )

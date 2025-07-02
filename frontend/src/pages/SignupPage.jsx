@@ -102,14 +102,12 @@ const SignupPage = () => {
     onSubmit: async (values, { setErrors }) => {
       try {
         await dispatch(registerUser(values))
-        toast.success(t('notifications.loginSuccess'))
-        navigate('/chat')
-      } catch (error) {
-        if (error.response && error.response.status === 409) {
-          setErrors({ username: t('channels.nameExists') })
-        } else {
-          toast.error(t('notifications.loginFailed'))
+        if (registerUser.fulfilled.match(result)) {
+          toast.success(t('notifications.registrationSuccess'))
+          navigate('/chat')
         }
+      } catch (error) {
+        toast.error(t('signup.duplicateError'))
       }
     },
   })
