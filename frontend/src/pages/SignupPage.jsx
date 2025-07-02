@@ -107,7 +107,11 @@ const SignupPage = () => {
           navigate('/chat')
         }
       } catch (error) {
-        setErrors({ username: t('signup.duplicateError') })
+        if (error.payload === 'Username already exists') {
+          setErrors({ username: 'Такой пользователь уже существует' });
+        } else {
+          toast.error(t('notifications.registrationFailed'));
+        }
       }
     },
   })
