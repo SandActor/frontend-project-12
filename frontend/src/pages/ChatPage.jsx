@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 import { useTranslation } from 'react-i18next';
 import { filterProfanity } from '../utils/profanityFilter';
 
-const socket = io('http://localhost:5001');
+const socket = io('http://localhost:5002');
 
 const ChatPage = () => {
   const { t } = useTranslation();
