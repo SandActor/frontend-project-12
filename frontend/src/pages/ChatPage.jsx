@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect } from 'react';
-import { io } from 'socket.io-client';
-import { useTranslation } from 'react-i18next';
-import { filterProfanity } from '../utils/profanityFilter';
+import { useState, useRef, useEffect } from 'react'
+import { io } from 'socket.io-client'
+import { useTranslation } from 'react-i18next'
+import { filterProfanity } from '../utils/profanityFilter'
 
-const socket = io('http://localhost:5001');
+const socket = io('http://localhost:5001')
 
 const ChatPage = () => {
-  const { t } = useTranslation();
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState('');
-  const [currentChannel, setCurrentChannel] = useState('general');
-  const messagesEndRef = useRef(null);
+  const { t } = useTranslation()
+  const [messages, setMessages] = useState([])
+  const [input, setInput] = useState('')
+  const [currentChannel, setCurrentChannel] = useState('general')
+  const messagesEndRef = useRef(null)
 
   useEffect(() => {
     socket.emit('join channel', currentChannel);
@@ -37,12 +37,17 @@ const ChatPage = () => {
     const filteredText = filterProfanity(input)
     socket.emit(
       'send message',
-      { text: filteredText, channelId: currentChannel },
+      { 
+        text: filteredText, 
+        channelId: currentChannel,
+        sender: 'currentUser',
+        id: Date.now()
+      },
       (ack) => {
         if (ack.status === 'ok') {
-          setInput('');
+          setInput('')
         } else {
-          alert(t('chat.error'));
+          alert(t('chat.error'))
         }
       }
     )
@@ -55,12 +60,12 @@ const ChatPage = () => {
   }
 
   const handleChangeChannel = (channelId) => {
-    setCurrentChannel(channelId)
-    setMessages([]);
+    setCurrentChannel(channelId);
+    setMessages([])
   }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   return (
@@ -84,6 +89,7 @@ const ChatPage = () => {
         onKeyDown={handleKeyDown}
         placeholder={t('chat.placeholder')}
         style={{ padding: '10px', width: '100%' }}
+        aria-label="Новое сообщение"
       />
       <button onClick={sendMessage} style={{ marginTop: '10px' }}>{t('chat.send')}</button>
     </div>
