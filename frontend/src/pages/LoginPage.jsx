@@ -31,8 +31,8 @@ function LoginPage() {
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-      <header style={styles.header}>
-        <Link to="/" style={styles.appNameLink}>{t('common.appName')}</Link>
+      <header>
+        <Link to="/">{t('common.appName')}</Link>
       </header>
       <h2 style={{ textAlign: 'center' }}>{t('login.title')}</h2>
       <Formik
