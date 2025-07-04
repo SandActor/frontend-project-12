@@ -55,6 +55,14 @@ function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
+  useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    const timer = setTimeout(() => navigate('/login'), 1000);
+    return () => clearTimeout(timer);
+  }
+}, [navigate]);
+
   return (
     <div style={styles.container}>
       <header style={styles.header}>
