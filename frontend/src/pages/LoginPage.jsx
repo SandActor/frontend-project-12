@@ -3,13 +3,15 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import { useState } from 'react'
 import * as Yup from 'yup'
 
 function LoginPage() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [error, setError] = useState(null)
 
-  const initialValues = { username: '', password: '' };
+  const initialValues = { username: '', password: '' }
 
   const handleSubmit = async (values) => {
     try {
@@ -67,7 +69,11 @@ function LoginPage() {
               />
               <ErrorMessage name="password" component="div" style={{ color: 'red', fontSize: '14px', marginTop: '5px' }} />
             </div>
-
+            {error && (
+              <div style={{ color: 'red', margin: '10px 0', textAlign: 'center' }}>
+                {error}
+              </div>
+            )}
             <button 
               type="submit" 
               disabled={isSubmitting} 
