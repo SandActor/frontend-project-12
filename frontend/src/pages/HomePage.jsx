@@ -58,7 +58,7 @@ function HomePage() {
   useEffect(() => {
   const token = localStorage.getItem('token');
   if (!token) {
-    const timer = setTimeout(() => navigate('/login'), 1000);
+    const timer = setTimeout(() => navigate('/login'), 300);
     return () => clearTimeout(timer);
   }
 }, [navigate]);
