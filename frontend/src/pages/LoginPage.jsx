@@ -18,7 +18,7 @@ function LoginPage() {
       toast.success(t('notifications.loginSuccess'))
       navigate('/')
     } catch (err) {
-      toast.error(t('errors.loginFailed'));
+      toast.error(t('notifications.loginFailed'))
     }
   }
 
