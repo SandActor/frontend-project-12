@@ -21,7 +21,6 @@ function LoginPage() {
       navigate('/')
     } catch (err) {
         setError(t('notifications.loginFailed'))
-        setError("Неверные имя пользователя или пароль")
     }
   }
 
