@@ -20,7 +20,8 @@ function LoginPage() {
       toast.success(t('notifications.loginSuccess'))
       navigate('/')
     } catch (err) {
-      setError(t('notifications.loginFailed'))
+        setError(t('notifications.loginFailed'))
+        setError("Неверные имя пользователя или пароль")
     }
   }
 
