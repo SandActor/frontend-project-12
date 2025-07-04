@@ -55,15 +55,6 @@ function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'test') {
-      const token = localStorage.getItem('token')
-      if (!token) {
-        navigate('/login')
-      }
-    }
-  }, [navigate])
-
   return (
     <div style={styles.container}>
       <header style={styles.header}>
