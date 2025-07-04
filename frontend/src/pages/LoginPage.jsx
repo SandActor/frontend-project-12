@@ -44,7 +44,7 @@ function LoginPage() {
           <Form>
             <div style={{ marginBottom: '15px' }}>
               <label htmlFor="username" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                {t('login.username')} {/* Должно переводиться как "Ваш ник" */}
+                {t('login.username')}
               </label>
               <Field
                 type="text"
@@ -57,7 +57,7 @@ function LoginPage() {
 
             <div style={{ marginBottom: '15px' }}>
               <label htmlFor="password" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                {t('login.password')} {/* Должно переводиться как "Пароль" */}
+                {t('login.password')}
               </label>
               <Field
                 type="password"
