@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useEffect } from 'react'
 
 const styles = {
   container: {
@@ -54,13 +53,6 @@ const styles = {
 function HomePage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (!token) {
-      navigate('/login')
-    }
-  }, [navigate])
 
   return (
     <div style={styles.container}>
