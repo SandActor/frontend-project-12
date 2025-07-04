@@ -13,14 +13,14 @@ function LoginPage() {
 
   const handleSubmit = async (values) => {
     try {
-      const data = await login(values.username, values.password);
-      localStorage.setItem('token', data.token);
-      toast.success(t('notifications.loginSuccess'));
-      navigate('/');
+      const data = await login(values.username, values.password)
+      localStorage.setItem('token', data.token)
+      toast.success(t('notifications.loginSuccess'))
+      navigate('/')
     } catch (err) {
       toast.error(t('errors.loginFailed'));
     }
-  };
+  }
 
   const validationSchema = Yup.object({
     username: Yup.string()
