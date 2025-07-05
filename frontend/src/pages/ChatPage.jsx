@@ -75,7 +75,7 @@ const ChatPage = () => {
       <div style={{ marginBottom: '10px' }}>
         {channels.map((channel) => (
           <div key={channel.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-            <span
+            <button
               style={{
                 cursor: 'pointer',
                 fontWeight: channel.id === activeChannelId ? 'bold' : 'normal',
@@ -84,7 +84,7 @@ const ChatPage = () => {
               onClick={() => handleChangeChannel(channel.id)}
             >
               {`# ${channel.name}`}
-            </span>
+            </button>
             {channel.creatorId === userId && channel.creatorId !== null && <ChannelMenu channel={channel} />}
           </div>
         ))}
