@@ -1,7 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { setActiveChannel } from '../store/channelsSlice';
 import { toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import ChannelMenu from './ChannelsList'
 
 const ChannelsList = () => {
   const { t } = useTranslation();
@@ -19,15 +20,9 @@ const ChannelsList = () => {
       {channels.map((channel) => (
         <li key={channel.id} style={{ marginBottom: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <span
-              style={{
-                cursor: 'pointer',
-                fontWeight: channel.id === activeChannelId ? 'bold' : 'normal',
-              }}
-              onClick={() => handleChangeChannel(channel.id)}
-            >
+            <div>
               {`# ${channel.name}`}
-            </span>
+            </div>
             <ChannelMenu channel={channel} />
           </div>
         </li>

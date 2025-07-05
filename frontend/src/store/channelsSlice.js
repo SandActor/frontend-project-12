@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   list: [
     { id: 'general', name: 'general', creatorId: null, isDefault: true },
+    { id: 'random', name: 'random', creatorId: null, isDefault: false },
   ],
   activeChannelId: 'general',
 }

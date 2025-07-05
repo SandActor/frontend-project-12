@@ -71,6 +71,7 @@
     "channelSwitched": "Канал переключен",
     "loginSuccess": "Вы успешно вошли в систему",
     "loginFailed": "Неверные имя пользователя или пароль",
+    "registrationSuccess": "Вы успешно вошли в систему",
     "registrationFailed": "Ошибка при регистрации"
   }
 }
