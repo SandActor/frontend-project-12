@@ -117,6 +117,12 @@ const ChatPage = () => {
       dispatch(deleteChannel(channelId))
       fetchChannels()
       setNotification(t('notifications.channelDeleted'))
+      if (activeChannelId === channelId && channels.length > 2) {
+        const newActiveChannel = channels.find(c => c.id !== channelId);
+        if (newActiveChannel) {
+          handleChangeChannel(newActiveChannel.id);
+        }
+      }
     } catch (error) {
       console.error('Error deleting channel:', error)
     }

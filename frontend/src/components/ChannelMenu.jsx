@@ -1,19 +1,27 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import RenameChannelModal from './RenameChannelModal'
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import RenameChannelModal from './RenameChannelModal';
 
 const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
-  const { t } = useTranslation()
-  const [isOpen, setIsOpen] = useState(false)
-  const [isRenameModalOpen, setRenameModalOpen] = useState(false)
+  const { t } = useTranslation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
   const handleDelete = () => {
-    onDelete(channel.id)
+    if (window.confirm(`${t('channelMenu.delete')} "# ${channel.name}"?`)) {
+      onDelete(channel.id);
+    }
   };
 
   return (
     <div style={{ position: 'relative' }}>
-      <button onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>{t('channels.management')}</button>
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        style={{ cursor: 'pointer' }}
+        aria-label={t('channels.management')}
+      >
+        {t('channels.management')}
+      </button>
       {isOpen && (
         <div
           style={{
@@ -28,8 +36,19 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
         >
           {!channel.isDefault && (
             <>
-              <button className="btn-danger" onClick={handleDelete}>{t('channelMenu.delete')}</button>
-              <button onClick={() => setRenameModalOpen(true)}>{t('channelMenu.rename')}</button>
+              <button 
+                className="btn-danger" 
+                onClick={handleDelete}
+                aria-label={t('channelMenu.delete')}
+              >
+                {t('channelMenu.delete')}
+              </button>
+              <button 
+                onClick={() => setRenameModalOpen(true)}
+                aria-label={t('channelMenu.rename')}
+              >
+                {t('channelMenu.rename')}
+              </button>
             </>
           )}
         </div>
