@@ -52,7 +52,6 @@
     "create": "Создать",
     "rename": "Переименовать",
     "cansel": "Отмена",
-    "newName": "Новое имя", 
     "nameLabel": "Имя канала",
     "namePlaceholder": "Введите название",
     "nameRequired": "Обязательное поле",

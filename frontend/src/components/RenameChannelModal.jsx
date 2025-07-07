@@ -48,7 +48,7 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <label htmlFor="newName">{t('channels.newName')}</label>
+              <label htmlFor="newName">{t('channels.nameLabel')}</label>
               <Field id="newName" name="newName" autoFocus />
               <ErrorMessage name="newName" component="div" style={{ color: 'red' }} />
               <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
