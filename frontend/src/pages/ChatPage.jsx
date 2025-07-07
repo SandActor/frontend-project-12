@@ -12,6 +12,7 @@ const ChatPage = () => {
   const dispatch = useDispatch()
   const activeChannelId = useSelector((state) => state.channels.activeChannelId)
   const userId = useSelector((state) => state.auth?.userId)
+  const userName = localStorage.getItem('username')
   const [messages, setMessages] = useState([])
   const defaultChanels = useSelector((state) => state.channels.list)
   const [channels, setChannels] = useState(defaultChanels)
@@ -175,7 +176,7 @@ const ChatPage = () => {
       <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
         {messages.map((msg) => (
           <div key={msg.id}>
-            <b>{msg.sender}:</b> {msg.text}
+            <b>{userName}:</b> {msg.text}
           </div>
         ))}
         <div ref={messagesEndRef} />
