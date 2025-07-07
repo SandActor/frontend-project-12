@@ -8,9 +8,7 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
   const [isRenameModalOpen, setRenameModalOpen] = useState(false)
 
   const handleDelete = () => {
-    if (window.confirm(`${t('channelMenu.delete')} "# ${channel.name}"?`)) {
-      onDelete(channel.id)
-    }
+    onDelete(channel.id)
   };
 
   return (
