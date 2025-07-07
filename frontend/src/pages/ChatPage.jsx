@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import { io } from 'socket.io-client'
 import { useDispatch, useSelector } from 'react-redux'
+import api from '../api/api'
 import NewChannelModal from '../components/NewChannelModal'
 import ChannelMenu from '../components/ChannelMenu'
-import { setActiveChannel } from '../store/channelsSlice'
+import { setActiveChannel, addChannel, deleteChannel, renameChannel } from '../store/channelsSlice'
 import { useTranslation } from 'react-i18next'
-
-const socket = io('http://localhost:5001/api/v1/channels')
+import { filterProfanity } from '../utils/profanityFilter'
 
 const ChatPage = () => {
   const { t } = useTranslation()
@@ -18,44 +17,97 @@ const ChatPage = () => {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const messagesEndRef = useRef(null)
 
+  const fetchChannels = async () => {
+    try {
+      const response = await api.get('/channels')
+      // Здесь нужно добавить логику для обновления списка каналов в хранилище
+    } catch (error) {
+      console.error('Error fetching channels:', error)
+    }
+  }
+
+  const fetchMessages = async (channelId) => {
+    try {
+      const response = await api.get(`/messages?channelId=${channelId}`)
+      setMessages(response.data.filter(msg => msg.channelId === channelId))
+    } catch (error) {
+      console.error('Error fetching messages:', error)
+    }
+  }
+
   const handleChangeChannel = (channelId) => {
     dispatch(setActiveChannel(channelId))
     setMessages([])
-    socket.emit('join channel', channelId)
+    fetchMessages(channelId)
   }
 
   useEffect(() => {
+    fetchChannels()
+  }, [])
+
+  useEffect(() => {
     if (activeChannelId) {
-      socket.emit('join channel', activeChannelId)
-      socket.on('channel history', (history) => {
-        setMessages(history)
-      })
-      socket.on('new message', (message) => {
-        if (message.channelId === activeChannelId) {
-          setMessages((prev) => [...prev, message])
-        }
-      })
-    }
-    return () => {
-      socket.off('channel history')
-      socket.off('new message')
+      fetchMessages(activeChannelId)
     }
   }, [activeChannelId])
 
-  const handleSendMessage = (text) => {
-    if (!text.trim() || !activeChannelId) return
-    socket.emit(
-      'send message',
-      {
+  const handleSendMessage = async (textOrEvent) => {
+    const text = typeof textOrEvent === 'string' 
+      ? textOrEvent 
+      : textOrEvent.target.value;
+    
+    if (!text.trim() || !activeChannelId) return;
+    
+    try {
+      const response = await api.post('/messages', {
         text: filterProfanity(text),
         channelId: activeChannelId,
         sender: userId,
-        id: Date.now(),
-      },
-      (ack) => {
-        if (ack.status !== 'ok') alert(t('chat.error'))
+      });
+      setMessages(prev => [...prev, response.data]);
+      
+      if (typeof textOrEvent !== 'string') {
+        textOrEvent.target.value = '';
       }
-    )
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert(t('chat.error'));
+    }
+  };
+
+  const handleCreateChannel = async (name) => {
+    try {
+      const response = await api.post('/channels', {
+        name: filterProfanity(name),
+        creatorId: userId,
+      })
+      dispatch(addChannel(response.data))
+      toast.success(t('notifications.channelCreated'))
+    } catch (error) {
+      console.error('Error creating channel:', error)
+    }
+  }
+
+  const handleRenameChannel = async (channelId, newName) => {
+    try {
+      const response = await api.patch(`/channels/${channelId}`, {
+        name: filterProfanity(newName),
+      })
+      dispatch(renameChannel({ id: channelId, newName: response.data.name }))
+      toast.success(t('notifications.channelRenamed'))
+    } catch (error) {
+      console.error('Error renaming channel:', error)
+    }
+  }
+
+  const handleDeleteChannel = async (channelId) => {
+    try {
+      await api.delete(`/channels/${channelId}`)
+      dispatch(deleteChannel(channelId))
+      toast.success(t('notifications.channelDeleted'))
+    } catch (error) {
+      console.error('Error deleting channel:', error)
+    }
   }
 
   useEffect(() => {
@@ -69,7 +121,10 @@ const ChatPage = () => {
       </div>
 
       {showCreateModal && (
-        <NewChannelModal onClose={() => setShowCreateModal(false)} />
+        <NewChannelModal 
+          onClose={() => setShowCreateModal(false)} 
+          onCreate={handleCreateChannel}
+        />
       )}
 
       <div style={{ marginBottom: '10px' }}>
@@ -85,7 +140,13 @@ const ChatPage = () => {
             >
               {`# ${channel.name}`}
             </button>
-            {channel.creatorId === userId && channel.creatorId !== null && <ChannelMenu channel={channel} />}
+            {channel.creatorId === userId && channel.creatorId !== null && (
+              <ChannelMenu 
+                channel={channel} 
+                onRename={handleRenameChannel}
+                onDelete={handleDeleteChannel}
+              />
+            )}
           </div>
         ))}
       </div>
@@ -105,18 +166,17 @@ const ChatPage = () => {
           placeholder={t('chat.placeholder')}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSendMessage(e.target.value)
-              e.target.value = ''
+              handleSendMessage(e);
             }
           }}
           style={{ width: '100%', padding: '10px' }}
         />
-        <button onClick={handleSendMessage} style={{ marginTop: '10px' }}>{t('chat.send')}</button>
+        <button onClick={() => handleSendMessage(document.querySelector('input').value)} style={{ marginTop: '10px' }}>
+          {t('chat.send')}
+        </button>
       </div>
     </div>
   )
 }
 
 export default ChatPage
-
-

@@ -1,14 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { addChannel } from '../store/channelsSlice';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { filterProfanity } from '../utils/profanityFilter';
 
-const NewChannelModal = ({ onClose }) => {
+const NewChannelModal = ({ onClose, onCreate }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.list);
   const userId = useSelector((state) => state.auth?.userId);
 
@@ -35,8 +33,7 @@ const NewChannelModal = ({ onClose }) => {
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
             const filteredName = filterProfanity(values.name);
-            dispatch(addChannel({ name: filteredName, creatorId: userId }));
-            toast.success(t('notifications.channelCreated'));
+            onCreate(filteredName);
             setSubmitting(false);
             onClose();
           }}

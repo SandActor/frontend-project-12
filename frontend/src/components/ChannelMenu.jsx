@@ -1,27 +1,17 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteChannel, renameChannel } from '../store/channelsSlice';
-import RenameChannelModal from './RenameChannelModal';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import RenameChannelModal from './RenameChannelModal';
 
-const ChannelMenu = ({ channel }) => {
+const ChannelMenu = ({ channel, onDelete, onRename }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const channels = useSelector((state) => state.channels.list);
   const [isOpen, setIsOpen] = useState(false);
   const [isRenameModalOpen, setRenameModalOpen] = useState(false);
 
   const handleDelete = () => {
     if (window.confirm(`${t('channelMenu.delete')} "# ${channel.name}"?`)) {
-      dispatch(deleteChannel(channel.id));
-      toast.success(t('notifications.channelDeleted'));
+      onDelete(channel.id);
     }
-  };
-
-  const handleRename = (newName) => {
-    dispatch(renameChannel({ id: channel.id, newName }));
-    toast.success(t('notifications.channelRenamed'));
   };
 
   return (
@@ -52,7 +42,7 @@ const ChannelMenu = ({ channel }) => {
           currentName={channel.name}
           onClose={() => setRenameModalOpen(false)}
           onRename={(newName) => {
-            handleRename(newName);
+            onRename(channel.id, newName);
             setRenameModalOpen(false);
           }}
           channels={channels}
@@ -62,4 +52,4 @@ const ChannelMenu = ({ channel }) => {
   );
 };
 
-export default ChannelMenu;
+export default ChannelMenu

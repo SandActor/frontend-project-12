@@ -63,4 +63,4 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
   );
 };
 
-export default RenameChannelModal;
+export default RenameChannelModal

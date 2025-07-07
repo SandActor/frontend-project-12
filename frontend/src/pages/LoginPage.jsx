@@ -18,9 +18,9 @@ function LoginPage() {
       const data = await login(values.username, values.password)
       localStorage.setItem('token', data.token)
       toast.success(t('notifications.loginSuccess'))
-      navigate('/')
+      navigate('/chat')
     } catch (err) {
-        setError(t('notifications.loginFailed'))
+      setError(t('notifications.loginFailed'))
     }
   }
 
