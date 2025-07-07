@@ -169,6 +169,7 @@ const ChatPage = () => {
               handleSendMessage(e);
             }
           }}
+          aria-label={t('chat.newMessage')}
           style={{ width: '100%', padding: '10px' }}
         />
         <button onClick={() => handleSendMessage(document.querySelector('input').value)} style={{ marginTop: '10px' }}>
