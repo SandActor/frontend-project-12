@@ -46,7 +46,9 @@
   },
   "channels": {
     "createTitle": "Создать канал",
+    "deleteTitle": "Удалить канал",
     "plus": "+",
+    "confirmDelete": "Уверены?",
     "management": "Управление каналом",
     "renameTitle": "Переименовать канал",
     "create": "Создать",

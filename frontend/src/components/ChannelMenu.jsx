@@ -1,17 +1,13 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import RenameChannelModal from './RenameChannelModal'
+import DeleteChannelModal from './DeleteChannelModal';
 
 const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const [isRenameModalOpen, setRenameModalOpen] = useState(false)
-
-  const handleDelete = () => {
-    if (window.confirm(`${t('channelMenu.delete')} "# ${channel.name}"?`)) {
-      onDelete(channel.id)
-    }
-  };
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
 
   return (
     <div style={{ position: 'relative' }}>
@@ -30,11 +26,20 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
         >
           {!channel.isDefault && (
             <>
-              <button className="btn-danger" onClick={handleDelete}>{t('channelMenu.delete')}</button>
+              <button onClick={() => setDeleteModalOpen(true)}>{t('channelMenu.delete')}</button>
               <button onClick={() => setRenameModalOpen(true)}>{t('channelMenu.rename')}</button>
             </>
           )}
         </div>
+      )}
+      {isDeleteModalOpen && (
+        <DeleteChannelModal
+          onClose={() => setDeleteModalOpen(false)}
+          onDelete={() => {
+            onDelete(channel.id);
+            setDeleteModalOpen(false);
+          }}
+        />
       )}
       {isRenameModalOpen && (
         <RenameChannelModal
