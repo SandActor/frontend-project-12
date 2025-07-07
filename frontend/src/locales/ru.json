@@ -56,8 +56,8 @@
     "nameLabel": "Имя канала",
     "namePlaceholder": "Введите название",
     "nameRequired": "Обязательное поле",
-    "nameMin": "Минимум 3 символа",
-    "nameMax": "Максимум 20 символов",
+    "nameMin": "От 3 до 20 символов",
+    "nameMax": "От 3 до 20 символов",
     "nameExists": "Имя уже занято"
   },
   "channelMenu": {
