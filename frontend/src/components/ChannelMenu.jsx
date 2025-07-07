@@ -15,7 +15,7 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <button onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>⚙️</button>
+      <button onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>{t('channels.management')}</button>
       {isOpen && (
         <div
           style={{
