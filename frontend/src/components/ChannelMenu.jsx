@@ -30,7 +30,7 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
         >
           {!channel.isDefault && (
             <>
-              <button onClick={handleDelete}>{t('channelMenu.delete')}</button>
+              <button className="btn-danger" onClick={handleDelete}>{t('channelMenu.delete')}</button>
               <button onClick={() => setRenameModalOpen(true)}>{t('channelMenu.rename')}</button>
             </>
           )}
