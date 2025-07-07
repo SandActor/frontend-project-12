@@ -69,8 +69,8 @@
   "notifications": {
     "channelCreated": "Канал создан",
     "channelRenamed": "Канал переименован",
-    "channelDeleted": "Канал удален",
-    "channelSwitched": "Канал переключен",
+    "channelDeleted": "Канал удалён",
+    "channelSwitched": "Канал переключён",
     "loginSuccess": "Вы успешно вошли в систему",
     "loginFailed": "Неверные имя пользователя или пароль",
     "registrationSuccess": "Вы успешно вошли в систему",
