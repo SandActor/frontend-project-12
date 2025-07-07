@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import RenameChannelModal from './RenameChannelModal';
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import RenameChannelModal from './RenameChannelModal'
 
-const ChannelMenu = ({ channel, onDelete, onRename }) => {
-  const { t } = useTranslation();
-  const [isOpen, setIsOpen] = useState(false);
-  const [isRenameModalOpen, setRenameModalOpen] = useState(false);
+const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
+  const { t } = useTranslation()
+  const [isOpen, setIsOpen] = useState(false)
+  const [isRenameModalOpen, setRenameModalOpen] = useState(false)
 
   const handleDelete = () => {
     if (window.confirm(`${t('channelMenu.delete')} "# ${channel.name}"?`)) {
-      onDelete(channel.id);
+      onDelete(channel.id)
     }
   };
 

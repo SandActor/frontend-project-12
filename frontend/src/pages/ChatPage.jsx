@@ -10,17 +10,19 @@ import { filterProfanity } from '../utils/profanityFilter'
 const ChatPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const channels = useSelector((state) => state.channels.list)
   const activeChannelId = useSelector((state) => state.channels.activeChannelId)
   const userId = useSelector((state) => state.auth?.userId)
   const [messages, setMessages] = useState([])
+  const defaultChanels = useSelector((state) => state.channels.list)
+  const [channels, setChannels] = useState(defaultChanels)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const messagesEndRef = useRef(null)
+  const [notification, setNotification] = useState('')
 
   const fetchChannels = async () => {
     try {
       const response = await api.get('/channels')
-      // Здесь нужно добавить логику для обновления списка каналов в хранилище
+      setChannels(response.data)
     } catch (error) {
       console.error('Error fetching channels:', error)
     }
@@ -44,6 +46,13 @@ const ChatPage = () => {
   useEffect(() => {
     fetchChannels()
   }, [])
+
+  useEffect(() => {
+  if (notification) {
+    const timer = setTimeout(() => setNotification(''), 5000);
+    return () => clearTimeout(timer);
+  }
+}, [notification])
 
   useEffect(() => {
     if (activeChannelId) {
@@ -82,7 +91,8 @@ const ChatPage = () => {
         creatorId: userId,
       })
       dispatch(addChannel(response.data))
-      toast.success(t('notifications.channelCreated'))
+      fetchChannels()
+      setNotification(t('notifications.channelCreated'))
     } catch (error) {
       console.error('Error creating channel:', error)
     }
@@ -94,7 +104,8 @@ const ChatPage = () => {
         name: filterProfanity(newName),
       })
       dispatch(renameChannel({ id: channelId, newName: response.data.name }))
-      toast.success(t('notifications.channelRenamed'))
+      fetchChannels()
+      setNotification(t('notifications.channelRenamed'))
     } catch (error) {
       console.error('Error renaming channel:', error)
     }
@@ -104,7 +115,8 @@ const ChatPage = () => {
     try {
       await api.delete(`/channels/${channelId}`)
       dispatch(deleteChannel(channelId))
-      toast.success(t('notifications.channelDeleted'))
+      fetchChannels()
+      setNotification(t('notifications.channelDeleted'))
     } catch (error) {
       console.error('Error deleting channel:', error)
     }
@@ -117,7 +129,7 @@ const ChatPage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '80vh', border: '1px solid #ccc', padding: '10px' }}>
       <div style={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={() => setShowCreateModal(true)}>{t('channels.createTitle')}</button>
+        <button onClick={() => setShowCreateModal(true)}>{t('channels.plus')}</button>
       </div>
 
       {showCreateModal && (
@@ -126,7 +138,9 @@ const ChatPage = () => {
           onCreate={handleCreateChannel}
         />
       )}
-
+      <div style={{ minHeight: '20px', color: 'green', marginBottom: '10px' }}>
+        {notification}
+      </div>
       <div style={{ marginBottom: '10px' }}>
         {channels.map((channel) => (
           <div key={channel.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
@@ -140,9 +154,10 @@ const ChatPage = () => {
             >
               {`# ${channel.name}`}
             </button>
-            {channel.creatorId === userId && channel.creatorId !== null && (
+            {channel.removable === true && (
               <ChannelMenu 
                 channel={channel} 
+                channels={channels}
                 onRename={handleRenameChannel}
                 onDelete={handleDeleteChannel}
               />
