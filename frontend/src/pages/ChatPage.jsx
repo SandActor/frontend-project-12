@@ -20,12 +20,18 @@ const ChatPage = () => {
   const messagesEndRef = useRef(null)
   const [notification, setNotification] = useState('')
 
-  const fetchChannels = async () => {
+  const fetchChannels = async (id = null) => {
     try {
       const response = await api.get('/channels')
       setChannels(response.data)
-      dispatch(setActiveChannel(response.data[0].id))
-      fetchMessages(response.data[0].id)
+      if(id) {
+        dispatch(setActiveChannel(id))
+        fetchMessages(id)
+      } 
+      else {
+        dispatch(setActiveChannel(response.data[0].id))
+        fetchMessages(response.data[0].id)
+      }
     } catch (error) {
       console.error('Error fetching channels:', error)
     }
@@ -98,7 +104,7 @@ const ChatPage = () => {
         creatorId: userId,
       })
       dispatch(addChannel(response.data))
-      fetchChannels()
+      fetchChannels(response.data.id)
       setNotification(t('notifications.channelCreated'))
     } catch (error) {
       console.error('Error creating channel:', error)
