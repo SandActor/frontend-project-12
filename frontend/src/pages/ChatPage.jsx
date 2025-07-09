@@ -58,9 +58,13 @@ const ChatPage = () => {
 }, [notification])
 
   useEffect(() => {
-    if (activeChannelId) {
-      fetchMessages(activeChannelId)
-    }
+    const interval = setInterval(() => {
+      if (activeChannelId) {
+        fetchMessages(activeChannelId)
+      }
+    }, 1000)
+
+    return () => clearInterval(interval)
   }, [activeChannelId])
 
   const handleSendMessage = async (textOrEvent) => {
