@@ -24,6 +24,8 @@ const ChatPage = () => {
     try {
       const response = await api.get('/channels')
       setChannels(response.data)
+      dispatch(setActiveChannel(response.data[0].id))
+      fetchMessages(response.data[0].id)
     } catch (error) {
       console.error('Error fetching channels:', error)
     }
@@ -176,7 +178,7 @@ const ChatPage = () => {
       <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
         {messages.map((msg) => (
           <div key={msg.id}>
-            <b>{msg.sender || userName}:</b> <b>{msg.text}</b>
+            <b>{msg.sender || userName}:</b><p>{msg.text}</p>
           </div>
         ))}
         <div ref={messagesEndRef} />
