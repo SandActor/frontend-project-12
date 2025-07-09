@@ -1,5 +1,5 @@
-const http = require('http')
-const { Server } = require('/api/v1/')
+import http from 'http'
+import { Server } from '/api/v1/'
 
 const server = http.createServer()
 const io = new Server(server)

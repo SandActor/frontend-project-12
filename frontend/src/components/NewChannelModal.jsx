@@ -1,14 +1,12 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { filterProfanity } from '../utils/profanityFilter';
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { filterProfanity } from '../utils/profanityFilter'
 
 const NewChannelModal = ({ onClose, onCreate }) => {
-  const { t } = useTranslation();
-  const channels = useSelector((state) => state.channels.list);
-  const userId = useSelector((state) => state.auth?.userId);
+  const { t } = useTranslation()
+  const channels = useSelector((state) => state.channels.list)
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -16,7 +14,7 @@ const NewChannelModal = ({ onClose, onCreate }) => {
       .max(20, t('channels.nameMax'))
       .notOneOf(channels.map(c => c.name), t('channels.nameExists'))
       .required(t('channels.nameRequired')),
-  });
+  })
 
   return (
     <div style={{
@@ -32,10 +30,10 @@ const NewChannelModal = ({ onClose, onCreate }) => {
           initialValues={{ name: '' }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            const filteredName = filterProfanity(values.name);
-            onCreate(filteredName);
-            setSubmitting(false);
-            onClose();
+            const filteredName = filterProfanity(values.name)
+            onCreate(filteredName)
+            setSubmitting(false)
+            onClose()
           }}
         >
           {({ isSubmitting }) => (
@@ -52,7 +50,7 @@ const NewChannelModal = ({ onClose, onCreate }) => {
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default NewChannelModal
