@@ -32,7 +32,6 @@ const ChatPage = () => {
   const fetchMessages = async (channelId) => {
     try {
       const response = await api.get(`/messages?channelId=${channelId}`)
-      console.log(response)
       setMessages(response.data.filter(msg => msg.channelId === channelId))
     } catch (error) {
       console.error('Error fetching messages:', error)
