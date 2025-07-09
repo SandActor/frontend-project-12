@@ -72,7 +72,7 @@ const ChatPage = () => {
       const response = await api.post('/messages', {
         text: filterProfanity(text),
         channelId: activeChannelId,
-        sender: userId,
+        sender: userName,
       });
       setMessages(prev => [...prev, response.data]);
       
@@ -176,7 +176,7 @@ const ChatPage = () => {
       <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
         {messages.map((msg) => (
           <div key={msg.id}>
-            <b>{userName}:</b> {msg.text}
+            <b>{msg.sender || userName}:</b> {msg.text}
           </div>
         ))}
         <div ref={messagesEndRef} />
