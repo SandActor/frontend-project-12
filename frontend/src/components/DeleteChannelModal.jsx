@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 const DeleteChannelModal = ({ onClose, onDelete }) => {
   const { t } = useTranslation()
-  
+
   return (
     <div
       style={{
@@ -31,9 +31,9 @@ const DeleteChannelModal = ({ onClose, onDelete }) => {
         <Formik
           initialValues={{}}
           onSubmit={(values, { setSubmitting }) => {
-            onDelete();
-            setSubmitting(false);
-            onClose();
+            onDelete()
+            setSubmitting(false)
+            onClose()
           }}
         >
           {({ isSubmitting }) => (
@@ -49,7 +49,7 @@ const DeleteChannelModal = ({ onClose, onDelete }) => {
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default DeleteChannelModal

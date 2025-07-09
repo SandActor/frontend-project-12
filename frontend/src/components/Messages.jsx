@@ -1,12 +1,15 @@
 import { useSelector } from 'react-redux'
 
 const Messages = () => {
-  const messages = useSelector((state) => state.chat.messages)
+  const messages = useSelector(state => state.chat.messages)
   return (
     <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
-      {messages.map((msg) => (
+      {messages.map(msg => (
         <div key={msg.id}>
-          <b>{msg.sender}:</b> {msg.text}
+          <b>
+            {msg.sender + ':'}
+          </b>
+          {msg.text}
         </div>
       ))}
     </div>

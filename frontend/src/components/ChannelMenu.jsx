@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import RenameChannelModal from './RenameChannelModal'
-import DeleteChannelModal from './DeleteChannelModal';
+import DeleteChannelModal from './DeleteChannelModal'
 
 const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
   const { t } = useTranslation()
@@ -36,8 +36,8 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
         <DeleteChannelModal
           onClose={() => setDeleteModalOpen(false)}
           onDelete={() => {
-            onDelete(channel.id);
-            setDeleteModalOpen(false);
+            onDelete(channel.id)
+            setDeleteModalOpen(false)
           }}
         />
       )}
@@ -46,14 +46,14 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
           currentName={channel.name}
           onClose={() => setRenameModalOpen(false)}
           onRename={(newName) => {
-            onRename(channel.id, newName);
-            setRenameModalOpen(false);
+            onRename(channel.id, newName)
+            setRenameModalOpen(false)
           }}
           channels={channels}
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 export default ChannelMenu

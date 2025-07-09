@@ -56,12 +56,12 @@ function HomePage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    const timer = setTimeout(() => navigate('/login'), 300);
-    return () => clearTimeout(timer);
-  }
-}, [navigate]);
+    const token = localStorage.getItem('token')
+    if (!token) {
+      const timer = setTimeout(() => navigate('/login'), 300)
+      return () => clearTimeout(timer)
+    }
+  }, [navigate])
 
   return (
     <div style={styles.container}>
@@ -74,16 +74,16 @@ function HomePage() {
         <div style={styles.buttonsContainer}>
           <button
             style={styles.button}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
+            onMouseOver={e => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
+            onMouseOut={e => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
             onClick={() => navigate('/login')}
           >
             {t('login.submit')}
           </button>
           <button
             style={styles.button}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
+            onMouseOver={e => (e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor)}
+            onMouseOut={e => (e.currentTarget.style.backgroundColor = styles.button.backgroundColor)}
             onClick={() => navigate('/signup')}
           >
             {t('signup.title')}

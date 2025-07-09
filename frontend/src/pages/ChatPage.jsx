@@ -10,11 +10,11 @@ import { filterProfanity } from '../utils/profanityFilter'
 const ChatPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const activeChannelId = useSelector((state) => state.channels.activeChannelId)
-  const userId = useSelector((state) => state.auth?.userId)
+  const activeChannelId = useSelector(state => state.channels.activeChannelId)
+  const userId = useSelector(state => state.auth?.userId)
   const userName = localStorage.getItem('username')
   const [messages, setMessages] = useState([])
-  const defaultChanels = useSelector((state) => state.channels.list)
+  const defaultChanels = useSelector(state => state.channels.list)
   const [channels, setChannels] = useState(defaultChanels)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const messagesEndRef = useRef(null)
@@ -24,15 +24,16 @@ const ChatPage = () => {
     try {
       const response = await api.get('/channels')
       setChannels(response.data)
-      if(id) {
+      if (id) {
         dispatch(setActiveChannel(id))
         fetchMessages(id)
-      } 
+      }
       else {
         dispatch(setActiveChannel(response.data[0].id))
         fetchMessages(response.data[0].id)
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error fetching channels:', error)
     }
   }
@@ -41,7 +42,8 @@ const ChatPage = () => {
     try {
       const response = await api.get(`/messages?channelId=${channelId}`)
       setMessages(response.data.filter(msg => msg.channelId === channelId))
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error fetching messages:', error)
     }
   }
@@ -57,11 +59,11 @@ const ChatPage = () => {
   }, [])
 
   useEffect(() => {
-  if (notification) {
-    const timer = setTimeout(() => setNotification(''), 5000);
-    return () => clearTimeout(timer);
-  }
-}, [notification])
+    if (notification) {
+      const timer = setTimeout(() => setNotification(''), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [notification])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -75,27 +77,27 @@ const ChatPage = () => {
 
   const handleSendMessage = async (textOrEvent) => {
     const text = typeof textOrEvent === 'string' 
-      ? textOrEvent 
-      : textOrEvent.target.value;
-    
-    if (!text.trim() || !activeChannelId) return;
+    ? textOrEvent 
+    : textOrEvent.target.value
+    if (!text.trim() || !activeChannelId) return
     
     try {
       const response = await api.post('/messages', {
         text: filterProfanity(text),
         channelId: activeChannelId,
         sender: userName,
-      });
-      setMessages(prev => [...prev, response.data]);
+      })
+      setMessages(prev => [...prev, response.data])
       
       if (typeof textOrEvent !== 'string') {
-        textOrEvent.target.value = '';
+        textOrEvent.target.value = ''
       }
-    } catch (error) {
-      console.error('Error sending message:', error);
-      alert(t('chat.error'));
     }
-  };
+    catch (error) {
+      console.error('Error sending message:', error)
+      alert(t('chat.error'))
+    }
+  }
 
   const handleCreateChannel = async (name) => {
     try {
@@ -106,7 +108,8 @@ const ChatPage = () => {
       dispatch(addChannel(response.data))
       fetchChannels(response.data.id)
       setNotification(t('notifications.channelCreated'))
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error creating channel:', error)
     }
   }
@@ -116,10 +119,11 @@ const ChatPage = () => {
       const response = await api.patch(`/channels/${channelId}`, {
         name: filterProfanity(newName),
       })
-      dispatch(renameChannel({ id: channelId, newName: response.data.name }))
+      dispatch(renameChannel({ id: channelId, newName: response.data.name, }))
       fetchChannels()
       setNotification(t('notifications.channelRenamed'))
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error renaming channel:', error)
     }
   }
@@ -131,18 +135,19 @@ const ChatPage = () => {
       fetchChannels()
       setNotification(t('notifications.channelDeleted'))
       if (activeChannelId === channelId && channels.length > 2) {
-        const newActiveChannel = channels.find(c => c.id !== channelId);
+        const newActiveChannel = channels.find(c => c.id !== channelId)
         if (newActiveChannel) {
-          handleChangeChannel(newActiveChannel.id);
+          handleChangeChannel(newActiveChannel.id)
         }
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error deleting channel:', error)
     }
   }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', })
   }, [messages])
 
   return (
@@ -188,7 +193,12 @@ const ChatPage = () => {
       <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
         {messages.map((msg) => (
           <div key={msg.id}>
-            <b>{msg.sender || userName}:</b><p>{msg.text}</p>
+            <b>
+              {msg.sender || userName}:
+            </b>
+            <p>
+              {msg.text}
+            </p>
           </div>
         ))}
         <div ref={messagesEndRef} />

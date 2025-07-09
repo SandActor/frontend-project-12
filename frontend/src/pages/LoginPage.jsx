@@ -20,7 +20,9 @@ function LoginPage() {
       localStorage.setItem('username', data.username)
       toast.success(t('notifications.loginSuccess'))
       navigate('/chat')
-    } catch (err) {
+    } 
+    catch (err) {
+      console.log(err)
       setError(t('notifications.loginFailed'))
     }
   }
@@ -29,8 +31,8 @@ function LoginPage() {
     username: Yup.string()
       .required(t('login.error')),
     password: Yup.string()
-      .required(t('login.error'))
-  });
+      .required(t('login.error')),
+  })
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
@@ -85,7 +87,7 @@ function LoginPage() {
                 color: '#fff',
                 border: 'none',
                 borderRadius: '4px',
-                cursor: 'pointer'
+                cursor: 'pointer',
               }}
             >
               {t('login.submit')}
@@ -94,8 +96,8 @@ function LoginPage() {
         )}
       </Formik>
 
-      <p style={{ marginTop: '15px', textAlign: 'center' }}>
-        {t('login.noAccount')} <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none' }}>{t('login.signup')}</Link>
+      <p style={{ marginTop: '15px', textAlign: 'center', }}>
+        {t('login.noAccount')} <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none', }}>{t('login.signup')}</Link>
       </p>
     </div>
   );

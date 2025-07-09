@@ -105,11 +105,14 @@ const SignupPage = () => {
         if (registerUser.fulfilled.match(result)) {
           toast.success(t('notifications.registrationSuccess'))
           navigate('/chat')
-        } else {
-          setErrors({ username: 'Такой пользователь уже существует' });
         }
-      } catch (error) {
-        toast.error(t('notifications.registrationFailed'));
+        else {
+          setErrors({ username: 'Такой пользователь уже существует' })
+        }
+      }
+      catch (error) {
+        console.log(error)
+        toast.error(t('notifications.registrationFailed'))
       }
     },
   })
@@ -169,13 +172,14 @@ const SignupPage = () => {
         <button
           type="submit"
           style={styles.submitButton}
-          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = styles.submitButtonHover.backgroundColor)}
-          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = styles.submitButton.backgroundColor)}
+          onMouseOver={e => (e.currentTarget.style.backgroundColor = styles.submitButtonHover.backgroundColor)}
+          onMouseOut={e => (e.currentTarget.style.backgroundColor = styles.submitButton.backgroundColor)}
         >
           {t('signup.register')}
         </button>
         <div style={styles.footerText}>
-          {t('signup.alreadyHave')} <Link to="/login" style={styles.link}>{t('signup.login')}</Link>
+          {t('signup.alreadyHave')}
+          <Link to="/login" style={styles.link}>{t('signup.login')}</Link>
         </div>
       </form>
     </div>

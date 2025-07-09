@@ -1,7 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 
 const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
   const { t } = useTranslation()
@@ -11,7 +10,7 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
       .max(20, 'Максимум 20 символов')
       .notOneOf(channels.map(c => c.name), 'Имя уже занято')
       .required('Обязательное поле'),
-  });
+  })
 
   return (
     <div
@@ -41,9 +40,9 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
           initialValues={{ newName: currentName }}
           validationSchema={validationSchema}
           onSubmit={(values, { setSubmitting }) => {
-            onRename(values.newName);
-            setSubmitting(false);
-            onClose();
+            onRename(values.newName)
+            setSubmitting(false)
+            onClose()
           }}
         >
           {({ isSubmitting }) => (
@@ -60,7 +59,7 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
         </Formik>
       </div>
     </div>
-  );
-};
+  )
+}
 
 export default RenameChannelModal

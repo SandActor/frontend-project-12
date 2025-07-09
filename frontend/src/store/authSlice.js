@@ -8,13 +8,14 @@ export const registerUser = createAsyncThunk(
       const response = await axios.post('/api/v1/signup', userData)
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('username', response.data.username)
-    } catch (err) {
+    }
+    catch (err) {
       if (err.response && err.response.status === 409) {
         return rejectWithValue('Username already exists')
       }
-      return rejectWithValue(err.response?.data?.message || 'Registration failed');
+      return rejectWithValue(err.response?.data?.message || 'Registration failed')
     }
-  }
+  },
 )
 
 const authSlice = createSlice({
@@ -32,15 +33,6 @@ const authSlice = createSlice({
       state.token = null
       state.username = null
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(registerUser.fulfilled, (state) => {
-        
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-
-      })
   },
 })
 

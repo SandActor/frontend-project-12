@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 const Header = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector(state => state.auth.token)
 
   const handleLogout = () => {
     dispatch(logout())

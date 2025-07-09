@@ -16,10 +16,10 @@ const channelsSlice = createSlice({
       state.activeChannelId = action.payload
     },
     addChannel(state, action) {
-      const { name, creatorId } = action.payload;
+      const { name, creatorId } = action.payload
       const id = name.toLowerCase().replace(/\s+/g, '-')
       state.list.push({ id, name, creatorId, isDefault: false })
-      state.activeChannelId = id;
+      state.activeChannelId = id
     },
     deleteChannel(state, action) {
       const id = action.payload

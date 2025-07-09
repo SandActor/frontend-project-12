@@ -6,7 +6,7 @@ import { filterProfanity } from '../utils/profanityFilter'
 
 const NewChannelModal = ({ onClose, onCreate }) => {
   const { t } = useTranslation()
-  const channels = useSelector((state) => state.channels.list)
+  const channels = useSelector(state => state.channels.list)
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -18,13 +18,15 @@ const NewChannelModal = ({ onClose, onCreate }) => {
 
   return (
     <div style={{
-        position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-        backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
-        justifyContent: 'center', alignItems: 'center', zIndex: 1000
-      }}>
+      position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
+      backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+      justifyContent: 'center', alignItems: 'center', zIndex: 1000
+      }}
+    >
       <div style={{
-        background: '#fff', padding: '20px', borderRadius: '8px', width: '300px'
-      }}>
+        background: '#fff', padding: '20px', borderRadius: '8px', width: '300px',
+      }}
+      >
         <h3>{t('channels.createTitle')}</h3>
         <Formik
           initialValues={{ name: '' }}
