@@ -176,7 +176,7 @@ const ChatPage = () => {
       <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
         {messages.map((msg) => (
           <div key={msg.id}>
-            <b>{msg.sender || userName}:</b> {msg.text}
+            <b>{msg.sender || userName}:</b> <b>{msg.text}</b>
           </div>
         ))}
         <div ref={messagesEndRef} />
