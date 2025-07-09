@@ -196,7 +196,7 @@ const ChatPage = () => {
             <b>
               {msg.sender || userName}
               :
-              </b>
+            </b>
             <p>
               {msg.text}
             </p>

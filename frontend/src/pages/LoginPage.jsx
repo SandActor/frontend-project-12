@@ -97,8 +97,8 @@ function LoginPage() {
       </Formik>
 
       <p style={{ marginTop: '15px', textAlign: 'center' }}>
-        {t('login.noAccount')} 
-        <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none', }}>
+        {t('login.noAccount')}
+        <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none' }}>
           {t('login.signup')}
         </Link>
       </p>
