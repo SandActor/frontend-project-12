@@ -20,7 +20,7 @@ function LoginPage() {
       localStorage.setItem('username', data.username)
       toast.success(t('notifications.loginSuccess'))
       navigate('/chat')
-    } 
+    }
     catch (err) {
       console.log(err)
       setError(t('notifications.loginFailed'))
@@ -77,9 +77,9 @@ function LoginPage() {
                 {error}
               </div>
             )}
-            <button 
-              type="submit" 
-              disabled={isSubmitting} 
+            <button
+              type="submit"
+              disabled={isSubmitting}
               style={{
                 width: '100%',
                 padding: '10px',
@@ -96,11 +96,14 @@ function LoginPage() {
         )}
       </Formik>
 
-      <p style={{ marginTop: '15px', textAlign: 'center', }}>
-        {t('login.noAccount')} <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none', }}>{t('login.signup')}</Link>
+      <p style={{ marginTop: '15px', textAlign: 'center' }}>
+        {t('login.noAccount')} 
+        <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none', }}>
+          {t('login.signup')}
+        </Link>
       </p>
     </div>
-  );
+  )
 }
 
 export default LoginPage

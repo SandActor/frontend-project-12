@@ -76,11 +76,11 @@ const ChatPage = () => {
   }, [activeChannelId])
 
   const handleSendMessage = async (textOrEvent) => {
-    const text = typeof textOrEvent === 'string' 
-    ? textOrEvent 
-    : textOrEvent.target.value
+    const text = typeof textOrEvent === 'string'
+      ? textOrEvent
+      : textOrEvent.target.value
     if (!text.trim() || !activeChannelId) return
-    
+
     try {
       const response = await api.post('/messages', {
         text: filterProfanity(text),
@@ -88,7 +88,7 @@ const ChatPage = () => {
         sender: userName,
       })
       setMessages(prev => [...prev, response.data])
-      
+
       if (typeof textOrEvent !== 'string') {
         textOrEvent.target.value = ''
       }
@@ -119,7 +119,7 @@ const ChatPage = () => {
       const response = await api.patch(`/channels/${channelId}`, {
         name: filterProfanity(newName),
       })
-      dispatch(renameChannel({ id: channelId, newName: response.data.name, }))
+      dispatch(renameChannel({ id: channelId, newName: response.data.name }))
       fetchChannels()
       setNotification(t('notifications.channelRenamed'))
     }
@@ -147,7 +147,7 @@ const ChatPage = () => {
   }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', })
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   return (
@@ -157,8 +157,8 @@ const ChatPage = () => {
       </div>
 
       {showCreateModal && (
-        <NewChannelModal 
-          onClose={() => setShowCreateModal(false)} 
+        <NewChannelModal
+          onClose={() => setShowCreateModal(false)}
           onCreate={handleCreateChannel}
         />
       )}
@@ -166,7 +166,7 @@ const ChatPage = () => {
         {notification}
       </div>
       <div style={{ marginBottom: '10px' }}>
-        {channels.map((channel) => (
+        {channels.map(channel => (
           <div key={channel.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
             <button
               style={{
@@ -179,8 +179,8 @@ const ChatPage = () => {
               {`# ${channel.name}`}
             </button>
             {channel.removable === true && (
-              <ChannelMenu 
-                channel={channel} 
+              <ChannelMenu
+                channel={channel}
                 channels={channels}
                 onRename={handleRenameChannel}
                 onDelete={handleDeleteChannel}
@@ -191,11 +191,12 @@ const ChatPage = () => {
       </div>
 
       <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
-        {messages.map((msg) => (
+        {messages.map(msg => (
           <div key={msg.id}>
             <b>
-              {msg.sender || userName}:
-            </b>
+              {msg.sender || userName}
+              :
+              </b>
             <p>
               {msg.text}
             </p>
@@ -210,7 +211,7 @@ const ChatPage = () => {
           placeholder={t('chat.placeholder')}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSendMessage(e);
+              handleSendMessage(e)
             }
           }}
           aria-label={t('chat.newMessage')}

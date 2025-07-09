@@ -13,11 +13,11 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<HomePage/> }/>
-          <Route path="/login" element={<LoginPage/> }/>
-          <Route path="/signup" element={<SignupPage/> }/>
-          <Route path="/chat" element={<ChatPage/> }/>
-          <Route path="*" element={<NotFoundPage/> }/>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
