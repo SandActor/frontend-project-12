@@ -10,24 +10,31 @@ const ChannelMenu = ({ channel, onDelete, onRename, channels }) => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
 
   return (
-    <div style={{ position: 'relative' }}>
-      <button onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>{t('channels.management')}</button>
+    <div className="position-relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="btn btn-link"
+      >
+        {t('channels.management')}
+      </button>
       {isOpen && (
         <div
-          style={{
-            position: 'absolute',
-            top: '100%',
-            right: 0,
-            background: '#fff',
-            border: '1px solid #ccc',
-            padding: '4px',
-            zIndex: 1000,
-          }}
+          className="dropdown-menu show"
         >
           {!channel.isDefault && (
             <>
-              <button onClick={() => setDeleteModalOpen(true)}>{t('channelMenu.delete')}</button>
-              <button onClick={() => setRenameModalOpen(true)}>{t('channelMenu.rename')}</button>
+              <button
+                className="dropdown-item"
+                onClick={() => setDeleteModalOpen(true)}
+              >
+                {t('channelMenu.delete')}
+              </button>
+              <button
+                className="dropdown-item"
+                onClick={() => setRenameModalOpen(true)}
+              >
+                {t('channelMenu.rename')}
+              </button>
             </>
           )}
         </div>

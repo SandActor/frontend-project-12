@@ -6,27 +6,9 @@ const DeleteChannelModal = ({ onClose, onDelete }) => {
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 1000,
-      }}
+      className="fixed-top d-flex justify-content-center align-items-center"
     >
-      <div
-        style={{
-          background: '#fff',
-          padding: '20px',
-          borderRadius: '8px',
-          width: '300px',
-        }}
-      >
+      <div className="bg-white p-4 rounded">
         <h3>{t('channels.deleteTitle')}</h3>
         <Formik
           initialValues={{}}
@@ -38,11 +20,11 @@ const DeleteChannelModal = ({ onClose, onDelete }) => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <ErrorMessage name="newName" component="div" style={{ color: 'red' }} />
+              <ErrorMessage name="newName" component="div" className="text-danger" />
               <div>{t('channels.confirmDelete')}</div>
-              <div style={{ marginTop: '10px', display: 'flex', justifyContent: 'space-between' }}>
-                <button className="btn-danger" type="submit" disabled={isSubmitting}>{t('channelMenu.delete')}</button>
-                <button type="button" onClick={onClose}>{t('channels.cansel')}</button>
+              <div className="d-flex justify-content-between mt-3">
+                <button className="btn btn-danger" type="submit" disabled={isSubmitting}>{t('channelMenu.delete')}</button>
+                <button className="btn btn-secondary" type="button" onClick={onClose}>{t('channels.cansel')}</button>
               </div>
             </Form>
           )}

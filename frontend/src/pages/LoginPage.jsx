@@ -6,6 +6,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useState } from 'react'
 import * as Yup from 'yup'
 
+const styles = {
+  container: 'max-w-md mx-auto p-6 bg-gray-100 rounded shadow',
+  header: '',
+  appNameLink: 'text-2xl font-semibold text-blue-600 no-underline',
+  formGroup: 'mb-4',
+  label: 'block mb-1 font-semibold',
+  input: 'w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400',
+  errorText: 'text-red-600 text-sm mt-1',
+  submitButton: 'w-full p-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition',
+  footerText: 'mt-4 text-center text-sm',
+  link: 'text-blue-600 hover:underline',
+}
+
 function LoginPage() {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -35,11 +48,11 @@ function LoginPage() {
   })
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px' }}>
-      <header>
-        <Link to="/">{t('common.appName')}</Link>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <Link to="/" className={styles.appNameLink}>{t('common.appName')}</Link>
       </header>
-      <h2 style={{ textAlign: 'center' }}>{t('login.title')}</h2>
+      <h2 className="text-xl mb-4 text-center">{t('login.title')}</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -47,60 +60,42 @@ function LoginPage() {
       >
         {({ isSubmitting }) => (
           <Form>
-            <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="username" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                {t('login.username')}
-              </label>
+            <div className={styles.formGroup}>
+              <label htmlFor="username" className={styles.label}>{t('login.username')}</label>
               <Field
-                type="text"
-                name="username"
                 id="username"
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                name="username"
+                className={styles.input}
               />
-              <ErrorMessage name="username" component="div" style={{ color: 'red', fontSize: '14px', marginTop: '5px' }} />
+              <ErrorMessage name="username" component="div" className={styles.errorText} />
             </div>
 
-            <div style={{ marginBottom: '15px' }}>
-              <label htmlFor="password" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>
-                {t('login.password')}
-              </label>
+            <div className={styles.formGroup}>
+              <label htmlFor="password" className={styles.label}>{t('login.password')}</label>
               <Field
-                type="password"
-                name="password"
                 id="password"
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+                name="password"
+                type="password"
+                className={styles.input}
               />
-              <ErrorMessage name="password" component="div" style={{ color: 'red', fontSize: '14px', marginTop: '5px' }} />
+              <ErrorMessage name="password" component="div" className={styles.errorText} />
             </div>
             {error && (
-              <div style={{ color: 'red', margin: '10px 0', textAlign: 'center' }}>
-                {error}
-              </div>
+              <div className="text-red-600 text-sm mb-2 text-center">{error}</div>
             )}
             <button
               type="submit"
               disabled={isSubmitting}
-              style={{
-                width: '100%',
-                padding: '10px',
-                backgroundColor: '#007bff',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-              }}
+              className={styles.submitButton}
             >
               {t('login.submit')}
             </button>
           </Form>
         )}
       </Formik>
-
-      <p style={{ marginTop: '15px', textAlign: 'center' }}>
+      <p className={styles.footerText}>
         {t('login.noAccount')}
-        <Link to="/signup" style={{ color: '#007bff', textDecoration: 'none' }}>
-          {t('login.signup')}
-        </Link>
+        <Link to="/signup" className={styles.link}>{t('login.signup')}</Link>
       </p>
     </div>
   )

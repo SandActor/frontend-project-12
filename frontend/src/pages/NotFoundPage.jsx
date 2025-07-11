@@ -4,7 +4,7 @@ function NotFoundPage() {
   const { t } = useTranslation()
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div>
       <h1>{t('notfound.title')}</h1>
       <p>{t('notfound.message')}</p>
     </div>
