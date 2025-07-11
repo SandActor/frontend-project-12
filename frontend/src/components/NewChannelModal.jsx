@@ -6,13 +6,13 @@ import { filterProfanity } from '../utils/profanityFilter'
 
 const NewChannelModal = ({ onClose, onCreate }) => {
   const { t } = useTranslation()
-  const channels = useSelector((state) => state.channels.list)
+  const channels = useSelector(state => state.channels.list)
 
   const validationSchema = Yup.object({
     name: Yup.string()
       .min(3, t('channels.nameMin'))
       .max(20, t('channels.nameMax'))
-      .notOneOf(channels.map((c) => c.name), t('channels.nameExists'))
+      .notOneOf(channels.map(c => c.name), t('channels.nameExists'))
       .required(t('channels.nameRequired')),
   })
 

@@ -20,7 +20,8 @@ function LoginPage() {
       localStorage.setItem('username', data.username)
       toast.success(t('notifications.loginSuccess'))
       navigate('/chat')
-    } catch (err) {
+    }
+    catch (err) {
       console.error(err)
       setError(t('notifications.loginFailed'))
     }
@@ -85,7 +86,8 @@ function LoginPage() {
           )}
         </Formik>
         <p className="mt-3 text-center small">
-          {t('login.noAccount')}{' '}
+          {t('login.noAccount')}
+          {' '}
           <Link to="/signup" className="text-primary text-decoration-underline">
             {t('login.signup')}
           </Link>

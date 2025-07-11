@@ -9,7 +9,7 @@ const RenameChannelModal = ({ currentName, onClose, onRename, channels }) => {
     newName: Yup.string()
       .min(3, t('channels.nameMin'))
       .max(20, t('channels.nameMax'))
-      .notOneOf(channels.map((c) => c.name), t('channels.nameExists'))
+      .notOneOf(channels.map(c => c.name), t('channels.nameExists'))
       .required(t('channels.nameRequired')),
   })
 

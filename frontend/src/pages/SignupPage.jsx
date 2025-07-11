@@ -38,7 +38,8 @@ const SignupPage = () => {
         } else {
           setErrors({ username: 'Такой пользователь уже существует' })
         }
-      } catch (error) {
+      }
+      catch (error) {
         console.log(error)
         toast.error(t('notifications.registrationFailed'))
       }
