@@ -35,7 +35,8 @@ const SignupPage = () => {
         if (registerUser.fulfilled.match(result)) {
           toast.success(t('notifications.registrationSuccess'))
           navigate('/chat')
-        } else {
+        }
+        else {
           setErrors({ username: 'Такой пользователь уже существует' })
         }
       }
