@@ -10,12 +10,13 @@ import { filterProfanity } from '../utils/profanityFilter'
 const ChatPage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const activeChannelId = useSelector(state => state.channels.activeChannelId)
-  const userId = useSelector(state => state.auth?.userId)
+  const activeChannelId = useSelector((state) => state.channels.activeChannelId)
   const userName = localStorage.getItem('username')
+  const userId = useSelector((state) => state.auth?.userId)
+  const defaultChannels = useSelector((state) => state.channels.list)
+  
   const [messages, setMessages] = useState([])
-  const defaultChanels = useSelector(state => state.channels.list)
-  const [channels, setChannels] = useState(defaultChanels)
+  const [channels, setChannels] = useState(defaultChannels)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const messagesEndRef = useRef(null)
   const [notification, setNotification] = useState('')
@@ -24,16 +25,12 @@ const ChatPage = () => {
     try {
       const response = await api.get('/channels')
       setChannels(response.data)
-      if (id) {
-        dispatch(setActiveChannel(id))
-        fetchMessages(id)
+      const channelIdToSet = id || response.data[0]?.id
+      if (channelIdToSet) {
+        dispatch(setActiveChannel(channelIdToSet))
+        fetchMessages(channelIdToSet)
       }
-      else {
-        dispatch(setActiveChannel(response.data[0].id))
-        fetchMessages(response.data[0].id)
-      }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching channels:', error)
     }
   }
@@ -41,9 +38,8 @@ const ChatPage = () => {
   const fetchMessages = async (channelId) => {
     try {
       const response = await api.get(`/messages?channelId=${channelId}`)
-      setMessages(response.data.filter(msg => msg.channelId === channelId))
-    }
-    catch (error) {
+      setMessages(response.data.filter((msg) => msg.channelId === channelId))
+    } catch (error) {
       console.error('Error fetching messages:', error)
     }
   }
@@ -71,14 +67,11 @@ const ChatPage = () => {
         fetchMessages(activeChannelId)
       }
     }, 1000)
-
     return () => clearInterval(interval)
   }, [activeChannelId])
 
   const handleSendMessage = async (textOrEvent) => {
-    const text = typeof textOrEvent === 'string'
-      ? textOrEvent
-      : textOrEvent.target.value
+    const text = typeof textOrEvent === 'string' ? textOrEvent : textOrEvent.target.value
     if (!text.trim() || !activeChannelId) return
 
     try {
@@ -87,13 +80,11 @@ const ChatPage = () => {
         channelId: activeChannelId,
         sender: userName,
       })
-      setMessages(prev => [...prev, response.data])
-
+      setMessages((prev) => [...prev, response.data])
       if (typeof textOrEvent !== 'string') {
         textOrEvent.target.value = ''
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error sending message:', error)
       alert(t('chat.error'))
     }
@@ -108,8 +99,7 @@ const ChatPage = () => {
       dispatch(addChannel(response.data))
       fetchChannels(response.data.id)
       setNotification(t('notifications.channelCreated'))
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error creating channel:', error)
     }
   }
@@ -122,8 +112,7 @@ const ChatPage = () => {
       dispatch(renameChannel({ id: channelId, newName: response.data.name }))
       fetchChannels()
       setNotification(t('notifications.channelRenamed'))
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error renaming channel:', error)
     }
   }
@@ -134,14 +123,11 @@ const ChatPage = () => {
       dispatch(deleteChannel(channelId))
       fetchChannels()
       setNotification(t('notifications.channelDeleted'))
-      if (activeChannelId === channelId && channels.length > 2) {
-        const newActiveChannel = channels.find(c => c.id !== channelId)
-        if (newActiveChannel) {
-          handleChangeChannel(newActiveChannel.id)
-        }
+      if (activeChannelId === channelId && channels.length > 1) {
+        const newChannel = channels.find((c) => c.id !== channelId)
+        if (newChannel) handleChangeChannel(newChannel.id)
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error deleting channel:', error)
     }
   }
@@ -151,34 +137,34 @@ const ChatPage = () => {
   }, [messages])
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '80vh', border: '1px solid #ccc', padding: '10px' }}>
-      <div style={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={() => setShowCreateModal(true)}>{t('channels.plus')}</button>
+    <div className="flex flex-col h-[80vh] border border-gray-300 p-4">
+      <div className="flex justify-between mb-2">
+        <button
+          className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          onClick={() => setShowCreateModal(true)}
+        >
+          {t('channels.plus')}
+        </button>
       </div>
 
       {showCreateModal && (
-        <NewChannelModal
-          onClose={() => setShowCreateModal(false)}
-          onCreate={handleCreateChannel}
-        />
+        <NewChannelModal onClose={() => setShowCreateModal(false)} onCreate={handleCreateChannel} />
       )}
-      <div style={{ minHeight: '20px', color: 'green', marginBottom: '10px' }}>
-        {notification}
-      </div>
-      <div style={{ marginBottom: '10px' }}>
-        {channels.map(channel => (
-          <div key={channel.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+
+      {notification && (
+        <div className="text-green-600 mb-2">{notification}</div>
+      )}
+
+      <div className="mb-4">
+        {channels.map((channel) => (
+          <div key={channel.id} className="flex items-center mb-2">
             <button
-              style={{
-                cursor: 'pointer',
-                fontWeight: channel.id === activeChannelId ? 'bold' : 'normal',
-                flexGrow: 1,
-              }}
+              className={`flex-1 text-left px-2 py-1 rounded ${channel.id === activeChannelId ? 'font-bold bg-gray-200' : ''}`}
               onClick={() => handleChangeChannel(channel.id)}
             >
               {`# ${channel.name}`}
             </button>
-            {channel.removable === true && (
+            {channel.removable && (
               <ChannelMenu
                 channel={channel}
                 channels={channels}
@@ -190,34 +176,32 @@ const ChatPage = () => {
         ))}
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}>
-        {messages.map(msg => (
-          <div key={msg.id}>
-            <b>
-              {msg.sender || userName}
-              :
-            </b>
-            <p>
-              {msg.text}
-            </p>
+      <div className="flex-1 overflow-y-auto border border-gray-300 p-2 mb-4">
+        {messages.map((msg) => (
+          <div key={msg.id} className="mb-2">
+            <b>{msg.sender || userName}:</b>
+            <p>{msg.text}</p>
           </div>
         ))}
         <div ref={messagesEndRef} />
       </div>
 
-      <div style={{ marginTop: '10px' }}>
+      <div className="flex items-center space-x-2">
         <input
           type="text"
           placeholder={t('chat.placeholder')}
+          className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSendMessage(e)
-            }
+            if (e.key === 'Enter') handleSendMessage(e)
           }}
-          aria-label={t('chat.newMessage')}
-          style={{ width: '100%', padding: '10px' }}
         />
-        <button onClick={() => handleSendMessage(document.querySelector('input').value)} style={{ marginTop: '10px' }}>
+        <button
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          onClick={() => {
+            const input = document.querySelector('input[type="text"]')
+            handleSendMessage(input.value)
+          }}
+        >
           {t('chat.send')}
         </button>
       </div>
