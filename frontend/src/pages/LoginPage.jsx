@@ -19,7 +19,6 @@ function LoginPage() {
       localStorage.setItem('token', data.token)
       localStorage.setItem('username', data.username)
       toast.success(t('notifications.loginSuccess'))
-      navigate('/chat')
     }
     catch (err) {
       console.error(err)
