@@ -15,7 +15,7 @@ function LoginPage() {
 
   const handleSubmit = async (values) => {
     try {
-      const data = await login(values.username, values.password)
+      await login(values.username, values.password)
       toast.success(t('notifications.loginSuccess'))
       navigate('/chat')
     }
