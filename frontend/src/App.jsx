@@ -16,7 +16,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/chat" element={<ChatPage />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/chat" element={<ChatPage />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

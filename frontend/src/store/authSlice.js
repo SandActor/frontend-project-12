@@ -11,6 +11,7 @@ export const registerUser = createAsyncThunk(
     }
     catch (err) {
       if (err.response && err.response.status === 409) {
+        localStorage.setItem('token', null)
         return rejectWithValue('Username already exists')
       }
       return rejectWithValue(err.response?.data?.message || 'Registration failed')
