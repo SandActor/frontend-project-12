@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage'
 import NotFoundPage from './pages/NotFoundPage'
 import SignupPage from './pages/SignupPage'
 import ChatPage from './pages/ChatPage'
+import PrivateRoute from './components/PrivateRoute'
 
 function App() {
   return (
