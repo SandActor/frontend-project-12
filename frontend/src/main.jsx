@@ -1,18 +1,5 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Provider } from 'react-redux'
-import store from './store/index.js'
-import App from './App.jsx'
 import './i18n'
-import ErrorBoundary from './components/ErrorBoundary'
+import AppProviders from './AppProviders'
 
-createRoot(document.getElementById('root')).render(
-  <ErrorBoundary>
-    <StrictMode>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </StrictMode>
-  </ErrorBoundary>,
-)
+createRoot(document.getElementById('root')).render(<AppProviders />)
