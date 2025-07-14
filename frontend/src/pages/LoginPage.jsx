@@ -16,8 +16,6 @@ function LoginPage() {
   const handleSubmit = async (values) => {
     try {
       const data = await login(values.username, values.password)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('username', data.username)
       toast.success(t('notifications.loginSuccess'))
       navigate('/chat')
     }
